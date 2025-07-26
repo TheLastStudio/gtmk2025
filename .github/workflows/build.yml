@@ -68,7 +68,7 @@ jobs:
       run: |
         curl -H "Content-Type: application/json" \
           -X POST \
-          -d "{\"content\": \"✅ **The new version of the game has been successfully uploaded!**\n🪟: https://itch.io/${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}\n🌐: https://itch.io/embed-upload/${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}/html5\"}" \
+          -d "{\"content\": \"✅ **The new version of the game has been successfully uploaded!**\n🌐: https://${{ secrets.ITCH_USERNAME }}.itch.io/${{ secrets.ITCH_GAME }}\"}" \
           ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     - name: Notify Discord on failure
