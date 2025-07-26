@@ -1,4 +1,5 @@
 # GMTK 2025
+## Team:
 - @QuaZi
 - @TzeLust
 - @AKRiL
