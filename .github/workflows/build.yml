@@ -29,16 +29,16 @@ jobs:
 
     - name: Export Windows
       run: |
-        godot --headless --export-release "Windows Desktop" build/windows/game.exe
+        godot --headless --export-release "Windows Desktop" export/windows/game.exe
 
     - name: Export HTML5
       run: |
-        godot --headless --export-release "Web" build/html/index.html
+        godot --headless --export-release "Web" export/html/index.html
 
     - name: Zip builds
       run: |
-        cd build/windows && zip -r ../windows.zip . && cd ..
-        cd build/html && zip -r ../html.zip . && cd ..
+        cd export/windows && zip -r ../windows.zip . && cd ..
+        cd export/html && zip -r ../html.zip . && cd ..
 
     - name: Cache Butler
       id: cache-butler
@@ -62,13 +62,13 @@ jobs:
       env:
         BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       run: |
-        ~/butler/butler push build/windows.zip ${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}:windows --userversion $(date +%Y%m%d%H%M%S)
+        ~/butler/butler push export/windows.zip ${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}:windows --userversion $(date +%Y%m%d%H%M%S)
 
     - name: Push HTML5 to itch.io
       env:
         BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       run: |
-        ~/butler/butler push build/html.zip ${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}:html5 --userversion $(date +%Y%m%d%H%M%S)
+        ~/butler/butler push export/html.zip ${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}:html5 --userversion $(date +%Y%m%d%H%M%S)
 
     - name: Notify Discord on success
       if: success()
