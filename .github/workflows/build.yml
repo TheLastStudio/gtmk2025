@@ -13,10 +13,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Godot
-      uses: chickensoft-games/setup-godot@v1
+      uses: chickensoft-games/setup-godot@v2
       with:
         version: 4.4.1
         use-dotnet: false
@@ -43,7 +43,7 @@ jobs:
 
     - name: Cache Butler
       id: cache-butler
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/butler
         key: butler-cache-v1
@@ -52,7 +52,7 @@ jobs:
       if: steps.cache-butler.outputs.cache-hit != 'true'
       run: |
         mkdir -p ~/butler
-        curl -L -o butler.zip https://broth.itch.ovh/butler/windows-amd64/latest/archive/default
+        curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
         unzip -o butler.zip -d ~/butler
         chmod +x ~/butler/butler
 
