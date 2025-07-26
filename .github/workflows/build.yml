@@ -41,15 +41,7 @@ jobs:
     - name: Zip HTML5 build
       run: zip -r export/html.zip export/html
 
-    - name: Cache Butler
-      id: cache-butler
-      uses: actions/cache@v4
-      with:
-        path: ~/butler
-        key: butler-cache-v1
-
-    - name: Download Butler if not cached
-      if: steps.cache-butler.outputs.cache-hit != 'true'
+    - name: Download Butler
       run: |
         mkdir -p ~/butler
         curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
