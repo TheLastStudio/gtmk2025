@@ -1,0 +1,86 @@
+name: Build and Deploy to Itch.io
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Export and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Godot
+      uses: chickensoft-games/setup-godot@v1
+      with:
+        version: 4.4.1
+        export-templates: true
+
+    - name: Create build directories
+      run: |
+        mkdir -p build/windows
+        mkdir -p build/html
+
+    - name: Export Windows
+      run: |
+        godot --headless --export-release "Windows Desktop" build/windows/game.exe
+
+    - name: Export HTML5
+      run: |
+        godot --headless --export-release "Web" build/html/index.html
+
+    - name: Zip builds
+      run: |
+        cd build/windows && zip -r ../windows.zip . && cd ..
+        cd build/html && zip -r ../html.zip . && cd ..
+
+    - name: Cache Butler
+      id: cache-butler
+      uses: actions/cache@v3
+      with:
+        path: ~/butler
+        key: butler-cache-v1
+
+    - name: Download Butler if not cached
+      if: steps.cache-butler.outputs.cache-hit != 'true'
+      run: |
+        mkdir -p ~/butler
+        curl -L -o butler.zip https://broth.itch.ovh/butler/windows-amd64/latest/archive/default
+        unzip -o butler.zip -d ~/butler
+        chmod +x ~/butler/butler
+
+    - name: Add Butler to PATH
+      run: echo "$HOME/butler" >> $GITHUB_PATH
+
+    - name: Push Windows to itch.io
+      env:
+        BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+      run: |
+        ~/butler/butler push build/windows.zip ${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}:windows --userversion $(date +%Y%m%d%H%M%S)
+
+    - name: Push HTML5 to itch.io
+      env:
+        BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+      run: |
+        ~/butler/butler push build/html.zip ${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}:html5 --userversion $(date +%Y%m%d%H%M%S)
+
+    - name: Notify Discord on success
+      if: success()
+      run: |
+        curl -H "Content-Type: application/json" \
+          -X POST \
+          -d "{\"content\": \"✅ **The new version of the game has been successfully uploaded!**\n🪟: https://itch.io/${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}\n🌐: https://itch.io/embed-upload/${{ secrets.ITCH_USERNAME }}/${{ secrets.ITCH_GAME }}/html5\"}" \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+    - name: Notify Discord on failure
+      if: failure()
+      run: |
+        curl -H "Content-Type: application/json" \
+          -X POST \
+          -d "{\"content\": \"❌ **The build or deployment failed.** Check the GitHub Actions log.\"}" \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
