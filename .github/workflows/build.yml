@@ -24,8 +24,8 @@ jobs:
 
     - name: Create build directories
       run: |
-        mkdir -p build/windows
-        mkdir -p build/html
+        mkdir -p export/windows
+        mkdir -p export/html
 
     - name: Export Windows
       run: |
