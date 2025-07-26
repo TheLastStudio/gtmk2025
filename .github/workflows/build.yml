@@ -35,10 +35,11 @@ jobs:
       run: |
         godot --headless --export-release "Web" export/html/index.html
 
-    - name: Zip builds
-      run: |
-        cd export/windows && zip -r ../windows.zip . && cd ..
-        cd export/html && zip -r ../html.zip . && cd ..
+    - name: Zip Windows build
+      run: zip -r export/windows.zip export/windows
+    
+    - name: Zip HTML5 build
+      run: zip -r export/html.zip export/html
 
     - name: Cache Butler
       id: cache-butler
