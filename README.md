@@ -9,4 +9,3 @@
 - @TzeLust
 - @AKRiL
 - @Inferno618
--yakiys inshiy chel
