@@ -8,5 +8,4 @@
 - @QuaZi
 - @TzeLust
 - @AKRiL
-- ?Inferno
-- ?Darw1nggg
+- @Inferno618
