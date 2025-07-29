@@ -5,7 +5,6 @@
 - Create personal branch for tasks with high conflict risk
 - Write normal commit messages 
 ## Team:
-- @TzeLust
 - @QuaZi
 - @AKRiL
 - @Inferno618
