@@ -6,5 +6,6 @@
 - Write normal commit messages 
 ## Team:
 - @QuaZi
+- @TzeLust
 - @AKRiL
 - @Inferno618
