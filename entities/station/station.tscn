@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://uyoy1h6gvryj"]
+
+[ext_resource type="Texture2D" uid="uid://b55lvcbcekapd" path="res://icon.svg" id="1_ioyex"]
+[ext_resource type="Script" uid="uid://bxgnpgtuqrx1f" path="res://entities/station/station.gd" id="1_vx0i3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vx0i3"]
+radius = 25.0
+height = 75.0
+
+[node name="Station" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_vx0i3")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-1.07288e-06, -3.09944e-06)
+scale = Vector2(0.390625, 0.609375)
+texture = ExtResource("1_ioyex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vx0i3")
+
+[node name="Path" type="Line2D" parent="."]

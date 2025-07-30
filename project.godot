@@ -11,20 +11,24 @@ config_version=5
 [application]
 
 config/name="GMTK2025"
-run/main_scene="uid://ofp0pp0b4mpa"
+run/main_scene="uid://bjix51uxbpc85"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/mode="viewport"
 
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[global_group]
+
+game=""
 
 [physics]
 
