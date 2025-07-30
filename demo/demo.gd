@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var car = preload("res://car.tscn")
+@onready var car = preload("res://demo/car.tscn")
 
 func add_new():
 	var c = car.instantiate()
