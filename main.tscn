@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://h1y41wbbu3wd"]
+[gd_scene load_steps=5 format=3 uid="uid://ofp0pp0b4mpa"]
 
-[node name="main" type="Node"]
+[ext_resource type="Texture2D" uid="uid://bph48xl4jfevy" path="res://icon.svg" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://rd7aspp21cyt" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cusblbgx5sbbs" path="res://car.tscn" id="1_ig7tw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
+radius = 100.0
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_h2yge")
+
+[node name="Center" type="StaticBody2D" parent="."]
+position = Vector2(876, 557)
+
+[node name="Icon" type="Sprite2D" parent="Center"]
+texture = ExtResource("1_0xm2m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Center"]
+shape = SubResource("CircleShape2D_0xm2m")
+
+[node name="Camera2D" type="Camera2D" parent="Center"]
+zoom = Vector2(0.27, 0.27)
+
+[node name="Car" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(876, 905)
+
+[node name="Trajectory" type="Line2D" parent="."]
+position = Vector2(876, 905)
