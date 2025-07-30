@@ -4,6 +4,9 @@ enum {SETTING, ORBITING}
 
 var state = SETTING
 
+func _ready() -> void:
+	randomize()
+	modulate = Color(randf(), randf(), randf())
 
 func _physics_process(_delta: float) -> void:
 	if state == SETTING:
