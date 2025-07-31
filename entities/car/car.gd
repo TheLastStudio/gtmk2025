@@ -69,7 +69,7 @@ func _physics_process(delta: float) -> void:
 		linear_damp = 0.0
 	
 	var distance = (game.station.position - game.planet.position).length()
-	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*11.7 - distance**2/9000
+	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*11.7 - distance**2/10500
 	launch_dir = get_global_mouse_position() - game.station.global_position
 	
 	if state == SETTING:
