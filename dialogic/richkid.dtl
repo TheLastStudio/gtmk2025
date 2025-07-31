@@ -1,0 +1,25 @@
+join RichKid leftmost
+RichKid: Hey, parking guy. My dad's here today for some super important meeting. He's a big deal around here.
+RichKid: I have a serious request for you - shoot me around the planet until my ears ring! I'll throw some cash your way too!
+join X rightmost
+- Okay, come on...
+	RichKid: Cool! Look, let's get as far away from the planet as possible, and accelerate so that I can fly as close as possible on the other side!
+	[signal arg="richkid_yes"]
+	[end_timeline]
+- Miss Manager, are we sure we can do this?
+	join Manager center
+	Manager: If the ship is destroyed, you will be fined.
+	leave Manager
+	X: Not a yes, but not a no either...
+	- Okay, come on!
+		RichKid: Cool! Look, let's get as far away from the planet as possible, and accelerate so that I can fly as close as possible on the other side!
+		[signal arg="richkid_yes"]
+		[end_timeline]
+	- No, we won't do that.
+		RichKid: Well, that's boring...
+		[signal arg="richkid_no"]
+		[end_timeline]
+- No, absolutely not!
+	RichKid: Well, that's boring...
+	[signal arg="richkid_no"]
+	[end_timeline]

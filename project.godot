@@ -23,11 +23,16 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={
+"Corp": "res://dialogic/Corp.dch",
 "Manager": "res://dialogic/Manager.dch",
+"RichKid": "res://dialogic/RichKid.dch",
+"Unknown": "res://dialogic/Unknown.dch",
 "X": "res://dialogic/X.dch"
 }
 directories/dtl_directory={
-"intro": "res://dialogic/intro.dtl"
+"corp1": "res://dialogic/corp1.dtl",
+"intro": "res://dialogic/intro.dtl",
+"richkid": "res://dialogic/richkid.dtl"
 }
 variables={
 "name": "X"

@@ -22,9 +22,16 @@ var max_tip = 20
 var min_fine = 20
 var max_fine = 45
 
+var engine_type = -1
+
+var last_frame_pos
+var pos_to_center
+
 @onready var key_point_area: Area2D = $KeyPointArea
 
 func _ready() -> void:
+	last_frame_pos = position
+	engine_type = randi_range(0, 1)*2 - 1
 	game = get_tree().get_first_node_in_group("game")
 	#modulate = Color(randf(), randf(), randf())
 	time_on_orbit = randf_range(min_time_on_orbit, max_time_on_orbit)
@@ -51,8 +58,16 @@ func _process(delta: float) -> void:
 			game.change_score(randi_range(-max_fine, -min_fine))
 			game.camera.apply_shake()
 			queue_free()
+	
+	
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	$Label.text = str(engine_type)
+	if rotation_direction(position, last_frame_pos, get_parent().planet.position, delta) != engine_type:
+		linear_damp = 0.3
+	else:
+		linear_damp = 0.0
+	
 	var distance = (game.station.position - game.planet.position).length()
 	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*11.7 - distance**2/9000
 	launch_dir = get_global_mouse_position() - game.station.global_position
@@ -78,6 +93,7 @@ func _physics_process(_delta: float) -> void:
 				queue_free()
 			else:
 				max_tip = 0 if max_tip == 2 else 2
+	last_frame_pos = position
 
 var dragging := false
 func _input(event: InputEvent) -> void:
@@ -127,6 +143,17 @@ func generate_path(velocity):
 			game.station.path.modulate = Color.RED
 			break
 
+func rotation_direction(p, last_p, center, dt):
+	var r = p - center
+	var v = (last_p - p)/dt
+	
+	var a_vel = r[0]*v[1] - r[1]*v[0]
+	
+	if a_vel > 0:
+		return 1
+	elif a_vel < 0:
+		return -1
+	return 0
 
 func _on_capture_area_body_entered(_body: Node2D) -> void:
 	if leave_ready:

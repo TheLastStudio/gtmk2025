@@ -52,7 +52,7 @@ func loose():
 	var lifetime = scene.lifetime
 	var seconds_in_loop = scene.seconds_in_loop
 	await change_scene(LOOSE_SCREEN)
-	scene.get_children()[0].	set_data(lifetime, seconds_in_loop)
+	scene.get_children()[0].set_data(lifetime, seconds_in_loop)
 
 
 func _on_dialogic_signal(argument: String):
@@ -60,4 +60,12 @@ func _on_dialogic_signal(argument: String):
 		"intro_ended":
 			await change_scene(GAME)
 			player_name = Dialogic.VAR.name
+		"richkid_yes":
+			scene.process_mode = Node.PROCESS_MODE_INHERIT
+			scene.station.richkid(true)
+		"richkid_no":
+			scene.process_mode = Node.PROCESS_MODE_INHERIT
+			scene.station.richkid(false)
+		"corp1_ended":
+			pass
 	

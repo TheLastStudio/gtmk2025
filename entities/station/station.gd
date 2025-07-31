@@ -15,8 +15,15 @@ var speed = 0
 @export var friction = 500
 
 
+var event_timer
+
+
 func _ready() -> void:
+	event_timer = randf_range(70, 100)
 	new_car()
+
+func _process(delta: float) -> void:
+	event_timer -= delta
 
 func new_car():
 	var c = car.instantiate()
@@ -26,6 +33,7 @@ func new_car():
 	#$"../KeyPointSpecial".set_car(c)
 
 func new_car_special(special: Node):
+	event_timer = randf_range(70, 100)
 	var c = car.instantiate()
 	c.global_position = position
 	c.modulate = Color.RED
@@ -35,7 +43,14 @@ func new_car_special(special: Node):
 
 func launched():
 	await get_tree().create_timer(randf_range(0.5, 2.5)).timeout
-	if Input.is_action_pressed("ui_up"):
+	if event_timer <= 0:
+		Dialogic.start("richkid")
+		get_tree().get_first_node_in_group("game").process_mode = Node.PROCESS_MODE_DISABLED
+	else:
+		new_car()
+
+func richkid(result):
+	if result:
 		new_car_special(get_tree().get_first_node_in_group("specials"))
 	else:
 		new_car()
