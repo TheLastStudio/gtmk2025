@@ -15,6 +15,10 @@ run/main_scene="uid://bjix51uxbpc85"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
+
 [display]
 
 window/size/viewport_width=1920
