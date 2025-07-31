@@ -1,0 +1,157 @@
+[gd_scene load_steps=10 format=3 uid="uid://djg7ft3gpulu7"]
+
+[ext_resource type="Script" uid="uid://cw777k0ca7873" path="res://game.gd" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://ctdwdxtftnh6l" path="res://entities/planet/planet.tscn" id="2_e2o6t"]
+[ext_resource type="Texture2D" uid="uid://cwi33u8o2ylyd" path="res://night_sky.png" id="2_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://uyoy1h6gvryj" path="res://entities/station/station.tscn" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://p61ove7wwt04" path="res://entities/game_camera.gd" id="4_ryrav"]
+[ext_resource type="PackedScene" uid="uid://f6p1pgcomb87" path="res://ui/circle_progress_bar/ui_circle_progress_bar.tscn" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://pflq4g5duh7p" path="res://entities/car/key_point_special.tscn" id="6_eow3j"]
+[ext_resource type="Script" uid="uid://c2oaw7kyqdn3e" path="res://ui/pause_menu.gd" id="8_j5wjh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eow3j"]
+radius = 16.0
+
+[node name="game" type="Node2D" groups=["game"]]
+script = ExtResource("1_80nbo")
+
+[node name="NightSky" type="Sprite2D" parent="."]
+position = Vector2(964, 508)
+texture = ExtResource("2_fc0e3")
+
+[node name="Planet" parent="." instance=ExtResource("2_e2o6t")]
+position = Vector2(960, 540)
+
+[node name="Camera2D" type="Camera2D" parent="Planet"]
+script = ExtResource("4_ryrav")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 1090.0
+offset_top = 490.0
+offset_right = 1095.0
+offset_bottom = 590.0
+color = Color(1, 1, 1, 0.392157)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1725.0
+offset_top = 490.0
+offset_right = 1730.0
+offset_bottom = 590.0
+color = Color(1, 1, 1, 0.392157)
+
+[node name="Station" parent="." instance=ExtResource("3_feb5d")]
+position = Vector2(1250, 540)
+
+[node name="RichKid" parent="." node_paths=PackedStringArray("keypoints") groups=["specials"] instance=ExtResource("6_eow3j")]
+keypoints = [NodePath("../KeyPoints/1"), NodePath("../KeyPoints/2")]
+
+[node name="KeyPoints" type="Node2D" parent="."]
+
+[node name="1" type="Area2D" parent="KeyPoints"]
+position = Vector2(851, 543)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeyPoints/1"]
+shape = SubResource("CircleShape2D_eow3j")
+debug_color = Color(0.943121, 6.54578e-06, 0.603064, 0.42)
+
+[node name="2" type="Area2D" parent="KeyPoints"]
+position = Vector2(1701, 538)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeyPoints/2"]
+shape = SubResource("CircleShape2D_eow3j")
+debug_color = Color(0.943121, 6.54578e-06, 0.603064, 0.42)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="LoopProgress" parent="UI" instance=ExtResource("5_7jktm")]
+offset_left = 109.0
+offset_top = 46.0
+offset_right = 237.0
+offset_bottom = 174.0
+max_value = 1.0
+step = 0.001
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 282.0
+offset_top = 68.0
+offset_right = 788.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 24
+text = "<- time until the next loan interest payment"
+
+[node name="Score" type="Label" parent="UI"]
+offset_left = 88.0
+offset_top = 198.0
+offset_right = 234.0
+offset_bottom = 286.0
+theme_override_font_sizes/font_size = 64
+text = "150¥"
+metadata/_edit_use_anchors_ = true
+
+[node name="Rules" type="Label" parent="UI"]
+offset_left = 1455.0
+offset_top = 916.0
+offset_right = 1910.0
+offset_bottom = 1065.0
+theme_override_font_sizes/font_size = 24
+text = "fjwoeifjwoejfowejfoweijf
+wifwoeifjowjeiof
+wefwoeifjowiejf
+t67567"
+
+[node name="Lifetime" type="Label" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -67.0
+offset_right = 469.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Loops survived: 92.5"
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="PauseMenu" type="Control" parent="PauseMenu"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 577.0
+offset_top = 494.0
+offset_right = 617.0
+offset_bottom = 534.0
+script = ExtResource("8_j5wjh")
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/PauseMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu/PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Resume" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Restart" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="satisfied" from="RichKid" to="." method="_on_rich_kid_satisfied"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Resume" to="PauseMenu/PauseMenu" method="resume"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Restart" to="PauseMenu/PauseMenu" method="restart"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Quit" to="PauseMenu/PauseMenu" method="quit"]

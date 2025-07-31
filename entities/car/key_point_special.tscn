@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://pflq4g5duh7p"]
+
+[ext_resource type="Script" uid="uid://c7n1lcbmaqs6x" path="res://entities/car/key_point_special.gd" id="1_72l02"]
+
+[node name="KeyPointSpecial" type="Node"]
+script = ExtResource("1_72l02")

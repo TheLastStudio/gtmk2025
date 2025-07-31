@@ -1,3 +1,63 @@
-[gd_scene format=3 uid="uid://h1y41wbbu3wd"]
+[gd_scene load_steps=8 format=3 uid="uid://bjix51uxbpc85"]
 
-[node name="main" type="Node"]
+[ext_resource type="Shader" uid="uid://ccs2e2xwx7idg" path="res://ui/shaders/success.gdshader" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://d2dd8rx7w135x" path="res://main.gd" id="1_1bvp3"]
+[ext_resource type="Script" uid="uid://ce8wyk8s3kqt2" path="res://ui/shaders/success.gd" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bbq23x0tbi783" path="res://ui/main_menu/main_menu.tscn" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://cfepus6vjcw08" path="res://ui/transitions.gd" id="5_lquwl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yge"]
+shader = ExtResource("1_0xm2m")
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/vignette_color = Color(0, 1, 0, 1)
+shader_parameter/vignette_width = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bvp3"]
+shader = ExtResource("1_0xm2m")
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/vignette_color = Color(1, 0, 0, 1)
+shader_parameter/vignette_width = 0.2
+
+[node name="main" type="Node" groups=["main"]]
+script = ExtResource("1_1bvp3")
+
+[node name="ScreenSpace" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Success" type="ColorRect" parent="ScreenSpace" groups=["screen_space"]]
+visible = false
+material = SubResource("ShaderMaterial_h2yge")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_h2yge")
+
+[node name="Error" type="ColorRect" parent="ScreenSpace" groups=["screen_space"]]
+visible = false
+material = SubResource("ShaderMaterial_1bvp3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_h2yge")
+
+[node name="MainMenu" parent="." instance=ExtResource("3_1bvp3")]
+
+[node name="Transitions" type="CanvasLayer" parent="."]
+layer = 8
+script = ExtResource("5_lquwl")
+
+[node name="ColorRect" type="ColorRect" parent="Transitions"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+metadata/_edit_use_anchors_ = true

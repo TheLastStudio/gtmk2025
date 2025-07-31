@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq0q32f4w8shu"]
+
+[ext_resource type="PackedScene" uid="uid://f6p1pgcomb87" path="res://ui/circle_progress_bar/ui_circle_progress_bar.tscn" id="1_r4x5s"]
+
+[node name="CircleProgressBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CircleProgressBar" parent="." instance=ExtResource("1_r4x5s")]
+layout_mode = 0
