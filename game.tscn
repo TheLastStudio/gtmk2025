@@ -20,8 +20,22 @@ position = Vector2(960, 540)
 [node name="Camera2D" type="Camera2D" parent="Planet"]
 script = ExtResource("4_ryrav")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 1090.0
+offset_top = 490.0
+offset_right = 1095.0
+offset_bottom = 590.0
+color = Color(1, 1, 1, 0.392157)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1725.0
+offset_top = 490.0
+offset_right = 1730.0
+offset_bottom = 590.0
+color = Color(1, 1, 1, 0.392157)
+
 [node name="Station" parent="." instance=ExtResource("3_feb5d")]
-position = Vector2(1120, 540)
+position = Vector2(1250, 540)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -51,7 +65,7 @@ text = "150¥"
 metadata/_edit_use_anchors_ = true
 
 [node name="Rules" type="Label" parent="UI"]
-offset_left = 1424.0
+offset_left = 1455.0
 offset_top = 916.0
 offset_right = 1910.0
 offset_bottom = 1065.0

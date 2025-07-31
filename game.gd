@@ -9,7 +9,7 @@ class_name Game
 @onready var camera: Camera2D = $Planet/Camera2D
 
 @export var score := 150
-@export var per_loop_payment := 100
+@export var per_loop_payment := 75
 @export var seconds_in_loop := 60
 
 var score_label_current_value: int = score
