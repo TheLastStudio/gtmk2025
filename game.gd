@@ -7,6 +7,8 @@ class_name Game
 @onready var score_label: Label = $UI/Score
 @onready var loop_progress: TextureProgressBar = $UI/LoopProgress
 @onready var camera: Camera2D = $Planet/Camera2D
+@onready var pause_menu: Control = $PauseMenu/PauseMenu
+
 
 @export var score := 150
 @export var per_loop_payment := 75
@@ -16,6 +18,8 @@ var score_label_current_value: int = score
 var loop_timer: float = seconds_in_loop
 
 var screen_space = {}
+
+var on_exit_timer = false
 
 func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("screen_space"):
@@ -38,6 +42,7 @@ func _process(delta: float) -> void:
 	if loop_timer <= 0:
 		loop_timer = seconds_in_loop
 		loop_events_trigger()
+
 
 func score_label_progress():
 	score_label_current_value += sign(score-score_label_current_value)

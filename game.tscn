@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://djg7ft3gpulu7"]
+[gd_scene load_steps=10 format=3 uid="uid://djg7ft3gpulu7"]
 
 [ext_resource type="Script" uid="uid://cw777k0ca7873" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://ctdwdxtftnh6l" path="res://entities/planet/planet.tscn" id="2_e2o6t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://p61ove7wwt04" path="res://entities/game_camera.gd" id="4_ryrav"]
 [ext_resource type="PackedScene" uid="uid://f6p1pgcomb87" path="res://ui/circle_progress_bar/ui_circle_progress_bar.tscn" id="5_7jktm"]
 [ext_resource type="PackedScene" uid="uid://pflq4g5duh7p" path="res://entities/car/key_point_special.tscn" id="6_eow3j"]
+[ext_resource type="Script" uid="uid://c2oaw7kyqdn3e" path="res://ui/pause_menu.gd" id="8_j5wjh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eow3j"]
 radius = 16.0
@@ -102,4 +103,45 @@ wifwoeifjowjeiof
 wefwoeifjowiejf
 t67567"
 
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="PauseMenu" type="Control" parent="PauseMenu"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 577.0
+offset_top = 494.0
+offset_right = 617.0
+offset_bottom = 534.0
+script = ExtResource("8_j5wjh")
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/PauseMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu/PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Resume" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Restart" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
 [connection signal="satisfied" from="RichKid" to="." method="_on_rich_kid_satisfied"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Resume" to="PauseMenu/PauseMenu" method="resume"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Restart" to="PauseMenu/PauseMenu" method="restart"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Quit" to="PauseMenu/PauseMenu" method="quit"]

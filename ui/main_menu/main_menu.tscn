@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbq23x0tbi783"]
+
+[ext_resource type="Script" uid="uid://dl10x7xftint8" path="res://ui/main_menu/main_menu.gd" id="1_uhj5c"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_uhj5c")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 480.0
+offset_right = -480.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "宇宙船の駐車"
+horizontal_alignment = 1
+
+[node name="Start" type="Button" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 96
+text = "Start"
+
+[connection signal="pressed" from="UI/VBoxContainer/Start" to="." method="_on_start_pressed"]
