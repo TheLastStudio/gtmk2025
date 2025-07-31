@@ -22,6 +22,8 @@ var max_tip = 20
 var min_fine = 20
 var max_fine = 45
 
+@onready var key_point_area: Area2D = $KeyPointArea
+
 func _ready() -> void:
 	game = get_tree().get_first_node_in_group("game")
 	#modulate = Color(randf(), randf(), randf())
@@ -74,6 +76,8 @@ func _physics_process(_delta: float) -> void:
 				game.change_score(randi_range(-max_fine, -min_fine))
 				game.camera.apply_shake()
 				queue_free()
+			else:
+				max_tip = 0 if max_tip == 2 else 2
 
 var dragging := false
 func _input(event: InputEvent) -> void:

@@ -22,10 +22,23 @@ func new_car():
 	var c = car.instantiate()
 	c.global_position = position
 	get_tree().get_first_node_in_group("game").add_child.call_deferred(c)
+	#await c.ready
+	#$"../KeyPointSpecial".set_car(c)
+
+func new_car_special(special: Node):
+	var c = car.instantiate()
+	c.global_position = position
+	c.modulate = Color.RED
+	get_tree().get_first_node_in_group("game").add_child.call_deferred(c)
+	await c.ready
+	special.set_car(c)
 
 func launched():
 	await get_tree().create_timer(randf_range(0.5, 2.5)).timeout
-	new_car()
+	if Input.is_action_pressed("ui_up"):
+		new_car_special(get_tree().get_first_node_in_group("specials"))
+	else:
+		new_car()
 
 
 func _physics_process(delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://djg7ft3gpulu7"]
+[gd_scene load_steps=9 format=3 uid="uid://djg7ft3gpulu7"]
 
 [ext_resource type="Script" uid="uid://cw777k0ca7873" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://ctdwdxtftnh6l" path="res://entities/planet/planet.tscn" id="2_e2o6t"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://uyoy1h6gvryj" path="res://entities/station/station.tscn" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://p61ove7wwt04" path="res://entities/game_camera.gd" id="4_ryrav"]
 [ext_resource type="PackedScene" uid="uid://f6p1pgcomb87" path="res://ui/circle_progress_bar/ui_circle_progress_bar.tscn" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://pflq4g5duh7p" path="res://entities/car/key_point_special.tscn" id="6_eow3j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eow3j"]
+radius = 16.0
 
 [node name="game" type="Node2D" groups=["game"]]
 script = ExtResource("1_80nbo")
@@ -36,6 +40,29 @@ color = Color(1, 1, 1, 0.392157)
 
 [node name="Station" parent="." instance=ExtResource("3_feb5d")]
 position = Vector2(1250, 540)
+
+[node name="RichKid" parent="." node_paths=PackedStringArray("keypoints") groups=["specials"] instance=ExtResource("6_eow3j")]
+keypoints = [NodePath("../KeyPoints/1"), NodePath("../KeyPoints/2")]
+
+[node name="KeyPoints" type="Node2D" parent="."]
+
+[node name="1" type="Area2D" parent="KeyPoints"]
+position = Vector2(851, 543)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeyPoints/1"]
+shape = SubResource("CircleShape2D_eow3j")
+debug_color = Color(0.943121, 6.54578e-06, 0.603064, 0.42)
+
+[node name="2" type="Area2D" parent="KeyPoints"]
+position = Vector2(1701, 538)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeyPoints/2"]
+shape = SubResource("CircleShape2D_eow3j")
+debug_color = Color(0.943121, 6.54578e-06, 0.603064, 0.42)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -74,3 +101,5 @@ text = "fjwoeifjwoejfowejfoweijf
 wifwoeifjowjeiof
 wefwoeifjowiejf
 t67567"
+
+[connection signal="satisfied" from="RichKid" to="." method="_on_rich_kid_satisfied"]

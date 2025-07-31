@@ -77,3 +77,8 @@ func change_score(value: int):
 	
 	await tween.finished
 	number.queue_free()
+
+
+func _on_rich_kid_satisfied() -> void:
+	change_score(randi_range(22,37))
+	print("GOIDA")

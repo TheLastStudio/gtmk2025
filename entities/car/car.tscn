@@ -59,4 +59,11 @@ hframes = 8
 vframes = 3
 frame = 5
 
+[node name="KeyPointArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeyPointArea"]
+shape = SubResource("CircleShape2D_1ang0")
+
 [connection signal="body_entered" from="CaptureArea" to="." method="_on_capture_area_body_entered"]
