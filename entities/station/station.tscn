@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://uyoy1h6gvryj"]
 
-[ext_resource type="Texture2D" uid="uid://b55lvcbcekapd" path="res://icon.svg" id="1_ioyex"]
+[ext_resource type="Texture2D" uid="uid://c06wyggwpgjei" path="res://icon.svg" id="1_ioyex"]
 [ext_resource type="Script" uid="uid://bxgnpgtuqrx1f" path="res://entities/station/station.gd" id="1_vx0i3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vx0i3"]

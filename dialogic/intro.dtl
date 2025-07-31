@@ -1,0 +1,10 @@
+join Manager left
+Manager: The Corporation welcomes you! You can simply address me as Manager. How should I address you?
+join X right
+[text_input text="Your name:" var="name" placeholder="ConscientiousEmployee666"]
+Manager: Get ready to start, {name}!
+X: What about the tutorial?
+[wait time="1.0"]
+Manager: ;)
+[signal arg="intro_ended"]
+[wait time="0.3"]

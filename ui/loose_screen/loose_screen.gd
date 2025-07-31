@@ -11,7 +11,7 @@ func set_data(_lifetime, _seconds_in_loop):
 
 
 func _on_menu_pressed() -> void:
-	var sw_result: Dictionary = await SilentWolf.Scores.save_score("Player"+str(randi_range(100,999)), snapped(lifetime/seconds_in_loop, 0.05)).sw_save_score_complete
+	var sw_result: Dictionary = await SilentWolf.Scores.save_score(Dialogic.VAR.name, snapped(lifetime/seconds_in_loop, 0.05)).sw_save_score_complete
 	print("Score persisted successfully: " + str(sw_result.score_id))
 	
 	get_tree().get_first_node_in_group("main").to_menu()
