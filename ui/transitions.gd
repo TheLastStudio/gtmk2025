@@ -18,4 +18,6 @@ func transition():
 	tween.tween_property(
 		$ColorRect, "color:a", 0.0, duration/2
 	).set_ease(Tween.EASE_IN)
+	
+	await tween.finished
 	$ColorRect.hide()
