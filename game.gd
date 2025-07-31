@@ -17,6 +17,8 @@ class_name Game
 var score_label_current_value: int = score
 var loop_timer: float = seconds_in_loop
 
+var lifetime := 0.0
+
 var screen_space = {}
 
 var on_exit_timer = false
@@ -42,6 +44,13 @@ func _process(delta: float) -> void:
 	if loop_timer <= 0:
 		loop_timer = seconds_in_loop
 		loop_events_trigger()
+	
+	if score_label_current_value < 0 and not on_exit_timer:
+		on_exit_timer = true
+		get_tree().get_first_node_in_group("main").loose()
+	
+	lifetime += delta
+	$UI/Lifetime.text = "Loops survived: " + str(snapped(lifetime/seconds_in_loop, 0.1))
 
 
 func score_label_progress():

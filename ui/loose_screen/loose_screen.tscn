@@ -1,3 +1,60 @@
-[gd_scene format=3 uid="uid://b6gt38gkwqwsa"]
+[gd_scene load_steps=2 format=3 uid="uid://b6gt38gkwqwsa"]
+
+[ext_resource type="Script" uid="uid://ehvck80xroor" path="res://ui/loose_screen/loose_screen.gd" id="1_jnu8p"]
 
 [node name="LooseScreen" type="CanvasLayer"]
+
+[node name="LooseScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jnu8p")
+
+[node name="Lifetime" type="Label" parent="LooseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -709.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 96
+text = "day 12345"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="LooseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 96
+text = "You lost!
+We dismembered you and
+sold your organs to pay your debt!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" type="Button" parent="LooseScreen"]
+layout_mode = 0
+offset_left = 394.0
+offset_top = 807.0
+offset_right = 713.0
+offset_bottom = 965.0
+text = "Main menu"
+
+[node name="Restart" type="Button" parent="LooseScreen"]
+layout_mode = 0
+offset_left = 1125.0
+offset_top = 825.0
+offset_right = 1444.0
+offset_bottom = 983.0
+text = "Restart"
+
+[connection signal="pressed" from="LooseScreen/Menu" to="LooseScreen" method="_on_menu_pressed"]
+[connection signal="pressed" from="LooseScreen/Restart" to="LooseScreen" method="_on_restart_pressed"]
