@@ -7,6 +7,20 @@ const LOOSE_SCREEN = preload("res://ui/loose_screen/loose_screen.tscn")
 @onready var scene : Node = $MainMenu
 @onready var transitions: CanvasLayer = $Transitions
 
+
+func _ready() -> void:
+	SilentWolf.configure({
+		"api_key": "5qL6XJFDvu8YEpOMsdl7H1clwJ3utC5c9WizBMmP",
+		"game_id": "SpaceParkingGMTK2025",
+		"log_level": 2
+	})
+	
+	var sw_result: Dictionary = await SilentWolf.Scores.get_scores().sw_get_scores_complete
+	print("Scores: " + str(sw_result.scores))
+	scene.setup_leaderboard()
+	
+
+
 func change_scene(scene_file: Resource):
 	transitions.transition()
 	await transitions.transit
@@ -22,7 +36,8 @@ func start_game():
 	change_scene(GAME)
 
 func to_menu():
-	change_scene(MAIN_MENU)
+	await change_scene(MAIN_MENU)
+	scene.setup_leaderboard()
 
 func restart():
 	change_scene(GAME)

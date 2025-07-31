@@ -39,10 +39,18 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 96
 text = "Settings"
 
-[node name="Start4" type="Button" parent="Menu/VBoxContainer"]
+[node name="Leaderboard" type="Button" parent="Menu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 96
 text = "Leaderboard:"
+
+[node name="LeaderboardContainer" type="VBoxContainer" parent="Menu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/VBoxContainer/LeaderboardContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Loading..."
 
 [node name="Settings" type="Control" parent="."]
 visible = false
@@ -104,6 +112,7 @@ text = "Back"
 
 [connection signal="pressed" from="Menu/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/Leaderboard" to="." method="_on_leaderboard_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Music/Music" to="." method="_on_music_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/SFX/SFX" to="." method="_on_sfx_value_changed"]
 [connection signal="pressed" from="Settings/VBoxContainer/Back" to="." method="_on_back_pressed"]
