@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://f6p1pgcomb87"]
+
+[ext_resource type="Texture2D" uid="uid://c8l5blp3wkdfj" path="res://ui/circle_progress_bar/progress-bar-circle.png" id="1_f6ojb"]
+[ext_resource type="Texture2D" uid="uid://da285b4oi78" path="res://ui/circle_progress_bar/progress-bar-frame.png" id="2_3b21p"]
+
+[node name="CircleProgressBar" type="TextureProgressBar"]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+step = 0.5
+fill_mode = 4
+texture_under = ExtResource("1_f6ojb")
+texture_over = ExtResource("2_3b21p")
+texture_progress = ExtResource("1_f6ojb")
+tint_under = Color(0, 0, 0, 0.392157)
+tint_progress = Color(0, 0.75, 0.0125, 1)

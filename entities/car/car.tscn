@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfmg5207rdphe"]
+[gd_scene load_steps=6 format=3 uid="uid://cfmg5207rdphe"]
 
 [ext_resource type="Script" uid="uid://coebpkx78exfl" path="res://entities/car/car.gd" id="1_yotxw"]
 [ext_resource type="Texture2D" uid="uid://b55lvcbcekapd" path="res://icon.svg" id="2_1ang0"]
@@ -7,7 +7,10 @@
 bounce = 0.3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x0apo"]
-radius = 25.0
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ang0"]
+radius = 40.0
 
 [node name="Car" type="RigidBody2D"]
 collision_layer = 0
@@ -25,5 +28,15 @@ texture = ExtResource("2_1ang0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x0apo")
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="DragLine" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
+antialiased = true
+
+[node name="CaptureArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureArea"]
+shape = SubResource("CircleShape2D_1ang0")
+
+[connection signal="body_entered" from="CaptureArea" to="." method="_on_capture_area_body_entered"]

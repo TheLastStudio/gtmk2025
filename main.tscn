@@ -1,7 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjix51uxbpc85"]
+[gd_scene load_steps=6 format=3 uid="uid://bjix51uxbpc85"]
 
-[ext_resource type="PackedScene" path="res://game.tscn" id="1_ig7tw"]
+[ext_resource type="Shader" uid="uid://ccs2e2xwx7idg" path="res://ui/shaders/success.gdshader" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://djg7ft3gpulu7" path="res://game.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://ce8wyk8s3kqt2" path="res://ui/shaders/success.gd" id="2_h2yge"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yge"]
+shader = ExtResource("1_0xm2m")
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/vignette_color = Color(0, 1, 0, 1)
+shader_parameter/vignette_width = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bvp3"]
+shader = ExtResource("1_0xm2m")
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/vignette_color = Color(1, 0, 0, 1)
+shader_parameter/vignette_width = 0.2
 
 [node name="main" type="Node"]
 
+[node name="ScreenSpace" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Success" type="ColorRect" parent="ScreenSpace" groups=["screen_space"]]
+visible = false
+material = SubResource("ShaderMaterial_h2yge")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_h2yge")
+
+[node name="Error" type="ColorRect" parent="ScreenSpace" groups=["screen_space"]]
+visible = false
+material = SubResource("ShaderMaterial_1bvp3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_h2yge")
+
 [node name="game" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(68, 219)

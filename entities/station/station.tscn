@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://uyoy1h6gvryj"]
+[gd_scene load_steps=6 format=3 uid="uid://uyoy1h6gvryj"]
 
 [ext_resource type="Texture2D" uid="uid://b55lvcbcekapd" path="res://icon.svg" id="1_ioyex"]
 [ext_resource type="Script" uid="uid://bxgnpgtuqrx1f" path="res://entities/station/station.gd" id="1_vx0i3"]
@@ -6,6 +6,13 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vx0i3"]
 radius = 25.0
 height = 75.0
+
+[sub_resource type="Curve" id="Curve_vx0i3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.704961, 0.630565), -0.99819, -0.99819, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_vx0i3"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Station" type="CharacterBody2D"]
 collision_layer = 2
@@ -21,3 +28,6 @@ texture = ExtResource("1_ioyex")
 shape = SubResource("CapsuleShape2D_vx0i3")
 
 [node name="Path" type="Line2D" parent="."]
+width_curve = SubResource("Curve_vx0i3")
+gradient = SubResource("Gradient_vx0i3")
+antialiased = true
