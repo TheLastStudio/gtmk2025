@@ -17,11 +17,11 @@
 &"portraits": {
 "Main": {
 "export_overrides": {
-"image": "\"res://icon.svg\""
+"image": "\"res://entities/characters/Manager.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),
-"scale": 1,
+"scale": 1.0,
 "scene": ""
 }
 },

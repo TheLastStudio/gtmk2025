@@ -22,12 +22,18 @@ var max_tip = 20
 var min_fine = 20
 var max_fine = 45
 
+var time = 0
+
 var engine_type = -1
 
 var last_frame_pos
 var pos_to_center
 
+var count = -1
+
 @onready var key_point_area: Area2D = $KeyPointArea
+
+var pickup_indicator = preload("res://entities/car/pickup__indicator.tscn")
 
 func _ready() -> void:
 	last_frame_pos = position
@@ -45,12 +51,21 @@ func randomize_sprite():
 	$Sprite/Top.frame_coords.x = randi_range(0, 3)
 
 func _process(delta: float) -> void:
+	Engine.time_scale = 1
+	
+	time += delta
 	if not leave_ready and state == ORBITING:
 		time_on_orbit -= delta
 		if time_on_orbit <= 0:
 			leave_ready = true
+			count = time
 	elif leave_ready:
-		modulate = Color(randf(), randf(), randf())
+		if time > count:
+			count += 1
+			var pickup = pickup_indicator.instantiate()
+			add_child(pickup)
+		
+		#modulate = Color(randf(), randf(), randf())
 	
 	if state == ORBITING:
 		time_until_lost -= delta
@@ -60,7 +75,7 @@ func _process(delta: float) -> void:
 			queue_free()
 	
 	
-
+ 
 func _physics_process(delta: float) -> void:
 	$Label.text = str(engine_type)
 	if rotation_direction(position, last_frame_pos, get_parent().planet.position, delta) != engine_type:
@@ -73,6 +88,7 @@ func _physics_process(delta: float) -> void:
 	launch_dir = get_global_mouse_position() - game.station.global_position
 	
 	if state == SETTING:
+		get_parent().station.get_node("Icon").flip_v = (engine_type == -1) #ОЦЕ ЗАМІНИТИ ЗМІНОЮ СПРАЙТА СТАНЦІЇ НА ІНШУ СТРІЛОЧКУ
 		position = game.station.position
 		if dragging:
 			$DragLine.points[1] = (launch_dir.normalized())*min(max_launch_speed, launch_dir.length())
@@ -126,6 +142,9 @@ func generate_path(velocity):
 	var accel = Vector2.ZERO
 	game.station.path.clear_points()
 	game.station.path.modulate = Color.WHITE
+	
+	if velocity.y * engine_type > 0:
+		game.station.path.modulate = Color.RED
 	
 	for x in 128:
 		game.station.path.add_point(pos)

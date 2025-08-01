@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://buhbmr7rppd8k"]
+
+[ext_resource type="Texture2D" uid="uid://cxatq2gowdqyh" path="res://entities/car/collecting indicator.png" id="1_xi3pc"]
+[ext_resource type="Script" uid="uid://dmhcjp6hyci08" path="res://entities/car/pickup__indicator.gd" id="1_yhgsj"]
+
+[node name="pickup _indicator" type="Node2D"]
+script = ExtResource("1_yhgsj")
+
+[node name="CollectingIndicator" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_xi3pc")
