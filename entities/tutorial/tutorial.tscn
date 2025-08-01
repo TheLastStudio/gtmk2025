@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwcyaoc7cvmj6"]
+[gd_scene load_steps=8 format=3 uid="uid://cwcyaoc7cvmj6"]
 
 [ext_resource type="Script" uid="uid://ccfqdnu6v4xiw" path="res://entities/tutorial/tutorial.gd" id="1_1ursk"]
-[ext_resource type="Texture2D" uid="uid://cwi33u8o2ylyd" path="res://night_sky.png" id="2_rdxdm"]
 [ext_resource type="PackedScene" uid="uid://ctdwdxtftnh6l" path="res://entities/planet/planet.tscn" id="3_qi6lk"]
 [ext_resource type="Script" uid="uid://p61ove7wwt04" path="res://entities/game_camera.gd" id="4_teufe"]
 [ext_resource type="PackedScene" uid="uid://uyoy1h6gvryj" path="res://entities/station/station.tscn" id="5_16e12"]
@@ -11,11 +10,6 @@
 
 [node name="Tutorial" type="Node2D" groups=["game"]]
 script = ExtResource("1_1ursk")
-
-[node name="NightSky" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(964, 508)
-texture = ExtResource("2_rdxdm")
 
 [node name="Planet" parent="." instance=ExtResource("3_qi6lk")]
 position = Vector2(960, 540)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfmg5207rdphe"]
+[gd_scene load_steps=10 format=3 uid="uid://cfmg5207rdphe"]
 
 [ext_resource type="Script" uid="uid://coebpkx78exfl" path="res://entities/car/car.gd" id="1_yotxw"]
 [ext_resource type="PackedScene" uid="uid://crv47d6yno0p4" path="res://entities/trail/trail.tscn" id="2_x0apo"]
 [ext_resource type="Texture2D" uid="uid://bwrpeq26b1p1q" path="res://entities/car/BaseShipsV1.png" id="3_x0apo"]
+[ext_resource type="Texture2D" uid="uid://dalormvf8aatn" path="res://entities/car/ShipsSpecialV1.png" id="4_qxogl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ang0"]
 bounce = 0.3
@@ -46,7 +47,15 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureArea"]
 shape = SubResource("CircleShape2D_1ang0")
 
+[node name="ShipsSpecialV1" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("4_qxogl")
+hframes = 5
+
 [node name="Sprite" type="Node2D" parent="."]
+visible = false
 z_index = 1
 
 [node name="Top" type="Sprite2D" parent="Sprite"]

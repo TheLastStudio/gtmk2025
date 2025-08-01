@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjix51uxbpc85"]
+[gd_scene load_steps=12 format=3 uid="uid://bjix51uxbpc85"]
 
 [ext_resource type="Shader" uid="uid://ccs2e2xwx7idg" path="res://ui/shaders/success.gdshader" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://d2dd8rx7w135x" path="res://main.gd" id="1_1bvp3"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://ce8wyk8s3kqt2" path="res://ui/shaders/success.gd" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bbq23x0tbi783" path="res://ui/main_menu/main_menu.tscn" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://cfepus6vjcw08" path="res://ui/transitions.gd" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://2k7jtj4lh8w0" path="res://CursorV4.png" id="7_5vw27"]
+[ext_resource type="Script" uid="uid://ulw3mvp34nq" path="res://cursor.gd" id="7_kek77"]
+[ext_resource type="Texture2D" uid="uid://5tgche3vl03a" path="res://CursorV5.png" id="8_kek77"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yge"]
 shader = ExtResource("1_0xm2m")
@@ -79,3 +82,44 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 metadata/_edit_use_anchors_ = true
+
+[node name="Cursor" type="CanvasLayer" parent="."]
+process_priority = -1
+layer = 16
+
+[node name="Control" type="Control" parent="Cursor"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("7_kek77")
+
+[node name="Cursor" type="Control" parent="Cursor/Control"]
+process_priority = -1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CursorOff" type="TextureRect" parent="Cursor/Control/Cursor"]
+process_priority = -1
+visible = false
+offset_left = -23.0
+offset_top = -7.0
+offset_right = 41.0
+offset_bottom = 57.0
+mouse_filter = 2
+texture = ExtResource("7_5vw27")
+
+[node name="CursorOn" type="TextureRect" parent="Cursor/Control/Cursor"]
+process_priority = -1
+visible = false
+offset_left = -23.0
+offset_top = -7.0
+offset_right = 41.0
+offset_bottom = 57.0
+mouse_filter = 2
+texture = ExtResource("8_kek77")

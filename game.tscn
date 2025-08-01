@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://djg7ft3gpulu7"]
+[gd_scene load_steps=10 format=3 uid="uid://djg7ft3gpulu7"]
 
 [ext_resource type="Script" uid="uid://cw777k0ca7873" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://ctdwdxtftnh6l" path="res://entities/planet/planet.tscn" id="2_e2o6t"]
-[ext_resource type="Texture2D" uid="uid://cwi33u8o2ylyd" path="res://night_sky.png" id="2_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://uyoy1h6gvryj" path="res://entities/station/station.tscn" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://p61ove7wwt04" path="res://entities/game_camera.gd" id="4_ryrav"]
 [ext_resource type="PackedScene" uid="uid://f6p1pgcomb87" path="res://ui/circle_progress_bar/ui_circle_progress_bar.tscn" id="5_7jktm"]
@@ -15,11 +14,6 @@ radius = 16.0
 
 [node name="game" type="Node2D" groups=["game"]]
 script = ExtResource("1_80nbo")
-
-[node name="NightSky" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(964, 508)
-texture = ExtResource("2_fc0e3")
 
 [node name="Planet" parent="." instance=ExtResource("2_e2o6t")]
 position = Vector2(960, 540)

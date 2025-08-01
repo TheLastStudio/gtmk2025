@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwi33u8o2ylyd"
-path="res://.godot/imported/night_sky.png-1d17c21e5fc000f701f3c0b060efe866.ctex"
+uid="uid://dalormvf8aatn"
+path="res://.godot/imported/ShipsSpecialV1.png-d718fef65ed622aa434a76ea63905ba1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://night_sky.png"
-dest_files=["res://.godot/imported/night_sky.png-1d17c21e5fc000f701f3c0b060efe866.ctex"]
+source_file="res://entities/car/ShipsSpecialV1.png"
+dest_files=["res://.godot/imported/ShipsSpecialV1.png-d718fef65ed622aa434a76ea63905ba1.ctex"]
 
 [params]
 

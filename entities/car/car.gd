@@ -60,9 +60,11 @@ func _ready() -> void:
 	if special == NONE:
 		randomize_sprite()
 	elif special == RICH_KID or special == RICH_KID_REJECTED:
-		randomize_sprite() #SPECIAL SPRITE!!!
+		$ShipsSpecialV1.show()
+		$ShipsSpecialV1.frame = 2
 	elif special == FAMILY:
-		randomize_sprite() #SPECIAL SPRITE!!!
+		$ShipsSpecialV1.show()
+		$ShipsSpecialV1.frame = 4
 		max_tip = 50
 		$FamilyFar.body_entered.connect(_on_far_family_entered)
 		$FamilyFar.body_exited.connect(_on_far_family_exited)
@@ -70,6 +72,7 @@ func _ready() -> void:
 		$FamilyClose.body_exited.connect(_on_close_family_exited)
 
 func randomize_sprite():
+	$Sprite.show()
 	$Sprite/Bottom.frame_coords.y = randi_range(0, 2)
 	$Sprite/Top.frame_coords.y = randi_range(0, 2)
 	$Sprite/Bottom.frame_coords.x = randi_range(4, 7)
@@ -97,11 +100,11 @@ func _process(delta: float) -> void:
 	
 	if special == FAMILY and state == ORBITING:
 		max_tip -= family_denomination_power * delta
-		$Label.show()
-		$Label.text = str(int(max_tip))
+		#$Label.show()
+		#$Label.text = str(int(max_tip))
  
 func _physics_process(delta: float) -> void:
-	if state != SETTING: print(linear_velocity.length(),"  ",linear_damp)
+	#if state != SETTING: print(linear_velocity.length(),"  ",linear_damp)
 	#$Label.text = str(engine_type)
 	if rotation_direction(position, last_frame_pos, game.planet.position, delta) == -engine_type and state == ORBITING:
 		linear_damp = 0.3
@@ -109,7 +112,7 @@ func _physics_process(delta: float) -> void:
 		linear_damp = 0.0
 	
 	var distance = (game.station.position - game.planet.position).length()
-	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*12.4 - distance**2/9500 #*11.7 /9900
+	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*12.4 - distance**2/8500 #*11.7 /9900
 	launch_dir = get_global_mouse_position() - game.station.global_position
 	
 	if state == SETTING:
@@ -210,9 +213,13 @@ func _on_capture_area_body_entered(_body: Node2D) -> void:
 				game.change_score(randi_range(min_tip*1.2, max_tip))
 			else:
 				game.change_score(0)
-		else:
+		elif special == FAMILY:
 			max_fine = max(max_fine, 0)
+			min_fine = max_fine-8
 			min_fine = min(max_fine, min_fine)
+			min_fine = max(0, min_fine)
+			game.change_score(randi_range(min_tip, max_tip))
+		else:
 			game.change_score(randi_range(min_tip, max_tip))
 		if tutorial:
 			get_tree().get_first_node_in_group("game").catched()
