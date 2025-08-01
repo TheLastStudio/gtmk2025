@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfmg5207rdphe"]
+[gd_scene load_steps=9 format=3 uid="uid://cfmg5207rdphe"]
 
 [ext_resource type="Script" uid="uid://coebpkx78exfl" path="res://entities/car/car.gd" id="1_yotxw"]
 [ext_resource type="PackedScene" uid="uid://crv47d6yno0p4" path="res://entities/trail/trail.tscn" id="2_x0apo"]
@@ -12,6 +12,12 @@ radius = 28.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ang0"]
 radius = 36.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qxogl"]
+radius = 72.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hk7sx"]
+radius = 128.0
 
 [node name="Car" type="RigidBody2D"]
 collision_layer = 0
@@ -73,5 +79,17 @@ offset_top = -12.0
 offset_right = -24.0
 offset_bottom = 11.0
 text = "1"
+
+[node name="FamilyClose" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FamilyClose"]
+shape = SubResource("CircleShape2D_qxogl")
+
+[node name="FamilyFar" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FamilyFar"]
+shape = SubResource("CircleShape2D_hk7sx")
 
 [connection signal="body_entered" from="CaptureArea" to="." method="_on_capture_area_body_entered"]

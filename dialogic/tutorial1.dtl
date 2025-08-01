@@ -15,4 +15,5 @@ Manager: You'll be paid 300¥ per car launch. Your wage is fair and cannot be ne
 Manager: Now try launching several cars and see how they fly.\
 You can move the station by pressing the left - right arrows or A - D on your control console.\
 To launch the car, drag it with your mouse cursor.
+leave --All--
 [signal arg="tutorial1_ended"]

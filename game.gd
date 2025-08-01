@@ -96,5 +96,5 @@ func change_score(value: int):
 
 
 func _on_rich_kid_satisfied() -> void:
-	change_score(randi_range(25,45))
+	change_score(randi_range(35,47))
 	rich_kid_satisfied = true

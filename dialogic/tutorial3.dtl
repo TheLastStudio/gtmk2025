@@ -2,5 +2,6 @@ join Manager left
 join X right
 Manager: Great! I hope you continue to work effectively.
 Manager: And now it's time for you to move on to the real station.
+leave --All--
 [wait time="0.3"]
 [signal arg="tutorial3_ended"]

@@ -13,13 +13,16 @@ join X rightmost
 	X: Not a yes, but not a no either...
 	- Okay, come on!
 		RichKid: Cool! Look, let's get as far away from the planet as possible, and accelerate so that I can fly as close as possible on the other side!
+		leave --All--
 		[signal arg="richkid_yes"]
 		[end_timeline]
 	- No, we won't do that.
 		RichKid: Well, that's boring...
+		leave --All--
 		[signal arg="richkid_no"]
 		[end_timeline]
 - No, absolutely not!
 	RichKid: Well, that's boring...
+	leave --All--
 	[signal arg="richkid_no"]
 	[end_timeline]

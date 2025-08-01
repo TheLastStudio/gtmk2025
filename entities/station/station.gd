@@ -14,8 +14,18 @@ var max_speed = 400
 var accel = 600
 var friction = 500
 
+var game
 
 var event_timer
+var event_time_min = 35
+var event_time_max = 70
+
+enum {
+	RICH_KID,
+	FAMILY
+}
+
+var event_pool = [FAMILY, RICH_KID, FAMILY, RICH_KID, FAMILY, RICH_KID, FAMILY, RICH_KID]
 
 @export var tutorial = false
 
@@ -28,7 +38,8 @@ var frame = 2 :
 			0: $StationSketchV2.frame = 2
 
 func _ready() -> void:
-	event_timer = randf_range(70, 100)
+	game = get_tree().get_first_node_in_group("game")
+	event_timer = randf_range(event_time_min, event_time_max)
 	if tutorial: return
 	new_car()
 
@@ -40,7 +51,7 @@ func new_car():
 	var c = car.instantiate()
 	c.global_position = position
 	c.tutorial = tutorial
-	get_tree().get_first_node_in_group("game").add_child.call_deferred(c)
+	game.add_child.call_deferred(c)
 	#await c.ready
 	#$"../KeyPointSpecial".set_car(c)
 
@@ -48,27 +59,44 @@ func new_car_richkid(handler: Node):
 	var c = car.instantiate()
 	c.global_position = position
 	c.special = c.RICH_KID
-	get_tree().get_first_node_in_group("game").add_child.call_deferred(c)
+	game.add_child.call_deferred(c)
 	await c.ready
 	handler.set_car(c)
+
+func new_car_family():
+	var c = car.instantiate()
+	c.global_position = position
+	c.special = c.FAMILY
+	game.add_child.call_deferred(c)
+	await c.ready
 
 func launched():
 	await get_tree().create_timer(randf_range(0.5, 2.5)).timeout
 	if event_timer <= 0:
-		Dialogic.start("richkid")
-		get_tree().get_first_node_in_group("game").process_mode = Node.PROCESS_MODE_DISABLED
+		var event = event_pool.pop_front()
+		match event:
+			RICH_KID:
+				Dialogic.start("richkid")
+			FAMILY:
+				Dialogic.start("family")
+		event_timer = randf_range(event_time_min, event_time_max)
+		game.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		new_car()
 
 func richkid(result):
-	event_timer = randf_range(70, 100)
 	if result:
 		new_car_richkid(get_tree().get_first_node_in_group("specials"))
-	else:
-		new_car()
+	else: new_car()
+
+func family():
+	new_car_family()
 
 
 func _physics_process(delta: float) -> void:
+	if tutorial:
+		if game.state in [game.DIALOG1,	game.DIALOG2,game.FINISH,game.LOOSE]:
+			return
 	var input_direction = Input.get_action_strength("station_right") - Input.get_action_strength("station_left")
 	speed += input_direction * accel * delta
 	if sign(speed) != sign(input_direction):

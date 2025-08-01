@@ -9,6 +9,7 @@ join Unknown leftmost
 Unknown: Hey, valet...
 [wait time="1.0"]
 Unknown: I see you have a Corporation ship parked here...
-Unknown:  And I also see that you owe the Corporation a lot of money.
+Unknown: And I also see that you owe the Corporation a lot of money.
 Unknown: Just know that if something happens to that ship, someone might suddenly decide to help you sort out your debts.
+leave --All--
 [signal arg="corp1_ended"]

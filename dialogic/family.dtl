@@ -1,0 +1,8 @@
+join Family leftmost
+join X rightmost
+Family: Good afternoon. I'm staying here with a small child on the ship. You have to launch us in a way that makes as little noise as possible from the other ships around us.
+Family: Got it? As far away from the other ships as possible.
+leave Family
+X: Well, ok...
+leave X
+[signal arg="family_ended"]

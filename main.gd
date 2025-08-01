@@ -91,6 +91,9 @@ func _on_dialogic_signal(argument: String):
 		"richkid_no":
 			scene.process_mode = Node.PROCESS_MODE_INHERIT
 			scene.station.richkid(false)
+		"family_ended":
+			scene.process_mode = Node.PROCESS_MODE_INHERIT
+			scene.station.family()
 		"corp1_ended":
 			pass
 	

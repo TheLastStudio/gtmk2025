@@ -40,10 +40,13 @@ var pickup_indicator = preload("res://entities/car/pickup__indicator.tscn")
 enum  {
 	NONE,
 	RICH_KID,
-	RICH_KID_REJECTED
+	RICH_KID_REJECTED,
+	FAMILY
 }
 
 var special = NONE
+
+var family_denomination_power = 0
 
 
 func _ready() -> void:
@@ -58,6 +61,13 @@ func _ready() -> void:
 		randomize_sprite()
 	elif special == RICH_KID or special == RICH_KID_REJECTED:
 		randomize_sprite() #SPECIAL SPRITE!!!
+	elif special == FAMILY:
+		randomize_sprite() #SPECIAL SPRITE!!!
+		max_tip = 50
+		$FamilyFar.body_entered.connect(_on_far_family_entered)
+		$FamilyFar.body_exited.connect(_on_far_family_exited)
+		$FamilyClose.body_entered.connect(_on_close_family_entered)
+		$FamilyClose.body_exited.connect(_on_close_family_exited)
 
 func randomize_sprite():
 	$Sprite/Bottom.frame_coords.y = randi_range(0, 2)
@@ -77,9 +87,7 @@ func _process(delta: float) -> void:
 			count += 1
 			var pickup = pickup_indicator.instantiate()
 			add_child(pickup)
-		
 		#modulate = Color(randf(), randf(), randf())
-	
 	if state == ORBITING:
 		time_until_lost -= delta
 		if time_until_lost <= 0:
@@ -87,17 +95,21 @@ func _process(delta: float) -> void:
 			game.camera.apply_shake()
 			queue_free()
 	
-	
+	if special == FAMILY and state == ORBITING:
+		max_tip -= family_denomination_power * delta
+		$Label.show()
+		$Label.text = str(int(max_tip))
  
 func _physics_process(delta: float) -> void:
+	if state != SETTING: print(linear_velocity.length(),"  ",linear_damp)
 	#$Label.text = str(engine_type)
-	if rotation_direction(position, last_frame_pos, game.planet.position, delta) != engine_type:
+	if rotation_direction(position, last_frame_pos, game.planet.position, delta) == -engine_type and state == ORBITING:
 		linear_damp = 0.3
 	else:
 		linear_damp = 0.0
 	
 	var distance = (game.station.position - game.planet.position).length()
-	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*12.3 - distance**2/5500 #*11.7 /9900
+	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*12.4 - distance**2/9500 #*11.7 /9900
 	launch_dir = get_global_mouse_position() - game.station.global_position
 	
 	if state == SETTING:
@@ -167,7 +179,7 @@ func generate_path(velocity):
 		velocity += accel*delta
 		if wrong: velocity *= 0.995
 		pos += velocity*delta
-		if (center_position - pos).length() <= 98:
+		if (center_position - pos).length() <= 99:
 			game.station.path.modulate = Color.RED if not wrong else Color.DARK_ORANGE
 			break
 	for x in 1024:
@@ -175,7 +187,7 @@ func generate_path(velocity):
 		velocity += accel*delta
 		if wrong: velocity *= 0.995
 		pos += velocity*delta
-		if (center_position - pos).length() <= 98:
+		if (center_position - pos).length() <= 99:
 			game.station.path.modulate = Color.RED if not wrong else Color.DARK_ORANGE
 			break
 
@@ -199,7 +211,26 @@ func _on_capture_area_body_entered(_body: Node2D) -> void:
 			else:
 				game.change_score(0)
 		else:
+			max_fine = max(max_fine, 0)
+			min_fine = min(max_fine, min_fine)
 			game.change_score(randi_range(min_tip, max_tip))
 		if tutorial:
 			get_tree().get_first_node_in_group("game").catched()
 		queue_free()
+
+
+func _on_far_family_entered(body):
+	if body == self: return
+	family_denomination_power += 3
+
+func _on_far_family_exited(body):
+	if body == self: return
+	family_denomination_power -= 3
+
+func _on_close_family_entered(body):
+	if body == self: return
+	family_denomination_power += 5
+
+func _on_close_family_exited(body):
+	if body == self: return
+	family_denomination_power -= 5

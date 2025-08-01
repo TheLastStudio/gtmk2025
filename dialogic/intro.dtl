@@ -17,5 +17,6 @@ Manager: Get ready to start, {name}!
 	Manager: Ok, let's get started.
 - Skip intro
 	set {tutorial} = false
+leave --All--
 [signal arg="intro_ended"]
 [wait time="0.3"]

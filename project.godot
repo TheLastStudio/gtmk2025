@@ -25,6 +25,7 @@ Words="*res://entities/words.gd"
 
 directories/dch_directory={
 "Corp": "res://dialogic/Corp.dch",
+"Family": "res://dialogic/Family.dch",
 "Manager": "res://dialogic/Manager.dch",
 "RichKid": "res://dialogic/RichKid.dch",
 "Unknown": "res://dialogic/Unknown.dch",
@@ -32,6 +33,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "corp1": "res://dialogic/corp1.dtl",
+"family": "res://dialogic/family.dtl",
 "intro": "res://dialogic/intro.dtl",
 "richkid": "res://dialogic/richkid.dtl",
 "tutorial1": "res://dialogic/tutorial1.dtl",
