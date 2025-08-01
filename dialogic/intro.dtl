@@ -1,10 +1,25 @@
-join Manager left
+join Manager leftmost
 Manager: The Corporation welcomes you! You can simply address me as Manager. How should I address you?
-join X right
-[text_input text="Your name:" var="name" placeholder="ConscientiousEmployee666"]
+join X rightmost
+[text_input text="Your name:" var="name" allow_empty="true"]
+label name
+[signal arg="intro_name"]
+[wait time="0.1" hide_text="false"]
+if {name_success} == false:
+	[text_input text="The name is invalid. Try again:" var="name" allow_empty="true"]
+	jump name
+else:
+	jump continue
+label continue
 Manager: Get ready to start, {name}!
-X: What about the tutorial?
-[wait time="1.0"]
-Manager: ;)
+- Start tutorial
+	set {tutorial} = true
+	Manager: Ok, let's get started.
+- Start tutorial
+	set {tutorial} = true
+	Manager: Ok, let's get started.
+- Skip intro
+	set {tutorial} = false
 [signal arg="intro_ended"]
 [wait time="0.3"]
+<Empty Text Event>

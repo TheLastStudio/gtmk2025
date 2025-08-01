@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjix51uxbpc85"]
+[gd_scene load_steps=9 format=3 uid="uid://bjix51uxbpc85"]
 
 [ext_resource type="Shader" uid="uid://ccs2e2xwx7idg" path="res://ui/shaders/success.gdshader" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://d2dd8rx7w135x" path="res://main.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://dyhkftvlq276p" path="res://BG16x9_V1.png" id="2_7mycd"]
 [ext_resource type="Script" uid="uid://ce8wyk8s3kqt2" path="res://ui/shaders/success.gd" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bbq23x0tbi783" path="res://ui/main_menu/main_menu.tscn" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://cfepus6vjcw08" path="res://ui/transitions.gd" id="5_lquwl"]
@@ -20,6 +21,23 @@ shader_parameter/vignette_width = 0.2
 
 [node name="main" type="Node" groups=["main"]]
 script = ExtResource("1_1bvp3")
+
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="TextureRect" type="TextureRect" parent="BG"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1200.0
+offset_top = -675.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("2_7mycd")
 
 [node name="ScreenSpace" type="CanvasLayer" parent="."]
 layer = 10

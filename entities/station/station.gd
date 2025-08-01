@@ -4,42 +4,53 @@ class_name Station
 @onready var path = $Path
 @onready var car = preload("res://entities/car/car.tscn")
 
-@export var min_x = 1120
-@export var max_x = 1700
+var min_x = 1120
+var max_x = 1700
 
 var current_car
 
 var speed = 0
-@export var max_speed = 400
-@export var accel = 600
-@export var friction = 500
+var max_speed = 400
+var accel = 600
+var friction = 500
 
 
 var event_timer
 
+@export var tutorial = false
+
+var frame = 2 :
+	set(value):
+		frame = value
+		match value:
+			-1: $StationSketchV2.frame = 1
+			1: $StationSketchV2.frame = 0
+			0: $StationSketchV2.frame = 2
 
 func _ready() -> void:
 	event_timer = randf_range(70, 100)
+	if tutorial: return
 	new_car()
 
 func _process(delta: float) -> void:
+	if tutorial: return
 	event_timer -= delta
 
 func new_car():
 	var c = car.instantiate()
 	c.global_position = position
+	c.tutorial = tutorial
 	get_tree().get_first_node_in_group("game").add_child.call_deferred(c)
 	#await c.ready
 	#$"../KeyPointSpecial".set_car(c)
 
-func new_car_special(special: Node):
-	event_timer = randf_range(70, 100)
+func new_car_richkid(handler: Node):
 	var c = car.instantiate()
 	c.global_position = position
-	c.modulate = Color.RED
+	c.special = c.RICH_KID
 	get_tree().get_first_node_in_group("game").add_child.call_deferred(c)
 	await c.ready
-	special.set_car(c)
+	handler.set_car(c)
 
 func launched():
 	await get_tree().create_timer(randf_range(0.5, 2.5)).timeout
@@ -50,8 +61,9 @@ func launched():
 		new_car()
 
 func richkid(result):
+	event_timer = randf_range(70, 100)
 	if result:
-		new_car_special(get_tree().get_first_node_in_group("specials"))
+		new_car_richkid(get_tree().get_first_node_in_group("specials"))
 	else:
 		new_car()
 

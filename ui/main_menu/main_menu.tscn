@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbq23x0tbi783"]
+[gd_scene load_steps=3 format=3 uid="uid://bbq23x0tbi783"]
 
 [ext_resource type="Script" uid="uid://dl10x7xftint8" path="res://ui/main_menu/main_menu.gd" id="1_uhj5c"]
+[ext_resource type="Theme" uid="uid://d3sgghybuwqka" path="res://ui/theme.tres" id="2_mu8pm"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_uhj5c")
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_mu8pm")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
 layout_mode = 1
@@ -25,32 +27,52 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="Menu/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "宇宙船の駐車"
+theme_override_font_sizes/font_size = 115
+text = "лого гри"
 horizontal_alignment = 1
 
-[node name="Start" type="Button" parent="Menu/VBoxContainer"]
+[node name="Label2" type="Label" parent="Menu/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 115
+text = "лого гри"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Start" type="Button" parent="Menu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 96
 text = "Start"
 
-[node name="Settings" type="Button" parent="Menu/VBoxContainer"]
+[node name="Settings" type="Button" parent="Menu/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 96
 text = "Settings"
 
-[node name="Leaderboard" type="Button" parent="Menu/VBoxContainer"]
+[node name="Leaderboard" type="Label" parent="Menu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 96
 text = "Leaderboard:"
+horizontal_alignment = 1
 
-[node name="LeaderboardContainer" type="VBoxContainer" parent="Menu/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LeaderboardContainer" type="VBoxContainer" parent="Menu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/VBoxContainer/LeaderboardContainer"]
+[node name="Label" type="Label" parent="Menu/VBoxContainer/HBoxContainer/LeaderboardContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Loading..."
+
+[node name="LeaderboardContainer2" type="VBoxContainer" parent="Menu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="Settings" type="Control" parent="."]
 visible = false
@@ -60,6 +82,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_mu8pm")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
 layout_mode = 1
@@ -110,9 +133,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 96
 text = "Back"
 
-[connection signal="pressed" from="Menu/VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="Menu/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="Menu/VBoxContainer/Leaderboard" to="." method="_on_leaderboard_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/HBoxContainer2/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/HBoxContainer2/Settings" to="." method="_on_settings_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Music/Music" to="." method="_on_music_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/SFX/SFX" to="." method="_on_sfx_value_changed"]
 [connection signal="pressed" from="Settings/VBoxContainer/Back" to="." method="_on_back_pressed"]

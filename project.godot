@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+Words="*res://entities/words.gd"
 
 [dialogic]
 
@@ -32,10 +33,16 @@ directories/dch_directory={
 directories/dtl_directory={
 "corp1": "res://dialogic/corp1.dtl",
 "intro": "res://dialogic/intro.dtl",
-"richkid": "res://dialogic/richkid.dtl"
+"richkid": "res://dialogic/richkid.dtl",
+"tutorial1": "res://dialogic/tutorial1.dtl",
+"tutorial2": "res://dialogic/tutorial2.dtl",
+"tutorial3": "res://dialogic/tutorial3.dtl",
+"tutorialL": "res://dialogic/tutorialL.dtl"
 }
 variables={
-"name": "X"
+"name": "Employee666",
+"name_success": false,
+"tutorial": true
 }
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
@@ -45,11 +52,11 @@ text/advance_delay=0.1
 text/autoadvance_per_character_delay=0.1
 text/autoadvance_ignored_characters_enabled=true
 audio/max_channels=4.0
-animations/join_default_length=0.5
+animations/join_default_length=0.3
 animations/join_default_wait=true
-animations/leave_default_length=0.5
+animations/leave_default_length=0.3
 animations/leave_default_wait=true
-animations/cross_fade_default_length=0.5
+animations/cross_fade_default_length=0.3
 choices/autofocus_first=true
 choices/delay=0.2
 choices/reveal_delay=0
@@ -58,12 +65,17 @@ save/autosave_delay=60.0
 save/encryption_on_exports_only=true
 audio/type_sound_bus="SFX"
 text/autopauses={}
+layout/style_list=["res://dialogic/style_dialogic.tres"]
+layout/default_style="res://dialogic/style_dialogic.tres"
+glossary/default_case_sensitive=true
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="uid://2k7jtj4lh8w0"
+mouse_cursor/custom_image_hotspot=Vector2(23, 7)
 
 [editor]
 

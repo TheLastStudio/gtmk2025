@@ -1,0 +1,7 @@
+join Manager leftmost
+join X rightmost
+Manager: Congratulations!
+Manager: You even failed the initial test.
+Manager: Well, the instructions tell us to start all over again.
+[wait time="0.3"]
+[signal arg="tutorialL_ended"]

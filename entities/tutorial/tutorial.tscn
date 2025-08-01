@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwcyaoc7cvmj6"]
+
+[ext_resource type="Script" uid="uid://ccfqdnu6v4xiw" path="res://entities/tutorial/tutorial.gd" id="1_1ursk"]
+[ext_resource type="Texture2D" uid="uid://cwi33u8o2ylyd" path="res://night_sky.png" id="2_rdxdm"]
+[ext_resource type="PackedScene" uid="uid://ctdwdxtftnh6l" path="res://entities/planet/planet.tscn" id="3_qi6lk"]
+[ext_resource type="Script" uid="uid://p61ove7wwt04" path="res://entities/game_camera.gd" id="4_teufe"]
+[ext_resource type="PackedScene" uid="uid://uyoy1h6gvryj" path="res://entities/station/station.tscn" id="5_16e12"]
+[ext_resource type="Theme" uid="uid://d3sgghybuwqka" path="res://ui/theme.tres" id="6_miljl"]
+[ext_resource type="Texture2D" uid="uid://80jiwv5mxsk3" path="res://entities/tutorial/buttonsV2.png" id="6_qi6lk"]
+[ext_resource type="PackedScene" uid="uid://f6p1pgcomb87" path="res://ui/circle_progress_bar/ui_circle_progress_bar.tscn" id="7_cgx31"]
+
+[node name="Tutorial" type="Node2D" groups=["game"]]
+script = ExtResource("1_1ursk")
+
+[node name="NightSky" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(964, 508)
+texture = ExtResource("2_rdxdm")
+
+[node name="Planet" parent="." instance=ExtResource("3_qi6lk")]
+position = Vector2(960, 540)
+
+[node name="Camera2D" type="Camera2D" parent="Planet"]
+script = ExtResource("4_teufe")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 1090.0
+offset_top = 490.0
+offset_right = 1095.0
+offset_bottom = 590.0
+color = Color(1, 1, 1, 0.392157)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1725.0
+offset_top = 490.0
+offset_right = 1730.0
+offset_bottom = 590.0
+color = Color(1, 1, 1, 0.392157)
+
+[node name="Station" parent="." instance=ExtResource("5_16e12")]
+position = Vector2(1250, 540)
+tutorial = true
+
+[node name="ButtonsV2" type="Sprite2D" parent="Station"]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+position = Vector2(31, 110)
+scale = Vector2(2, 2)
+texture = ExtResource("6_qi6lk")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UI"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_miljl")
+
+[node name="LoopProgress" parent="UI/UI" instance=ExtResource("7_cgx31")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 109.0
+offset_top = 46.0
+offset_right = 237.0
+offset_bottom = 174.0
+max_value = 1.0
+step = 0.001
+
+[node name="Score" type="Label" parent="UI/UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 88.0
+offset_top = 198.0
+offset_right = 234.0
+offset_bottom = 286.0
+theme_override_font_sizes/font_size = 64
+text = "150¥"
+metadata/_edit_use_anchors_ = true
+
+[node name="BGDark" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect3" type="ColorRect" parent="BGDark"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.282353)

@@ -4,7 +4,7 @@ class_name  Car
 enum {SETTING, ORBITING}
 
 var state = SETTING
-var game : Game
+var game : Node
 
 var base_max_launch_speed = 600
 var max_launch_speed = 600
@@ -31,9 +31,20 @@ var pos_to_center
 
 var count = -1
 
+var tutorial = false
+
 @onready var key_point_area: Area2D = $KeyPointArea
 
 var pickup_indicator = preload("res://entities/car/pickup__indicator.tscn")
+
+enum  {
+	NONE,
+	RICH_KID,
+	RICH_KID_REJECTED
+}
+
+var special = NONE
+
 
 func _ready() -> void:
 	last_frame_pos = position
@@ -41,8 +52,12 @@ func _ready() -> void:
 	game = get_tree().get_first_node_in_group("game")
 	#modulate = Color(randf(), randf(), randf())
 	time_on_orbit = randf_range(min_time_on_orbit, max_time_on_orbit)
+	if tutorial: time_on_orbit = 12.5
 	time_until_lost = time_on_orbit*2.5
-	randomize_sprite()
+	if special == NONE:
+		randomize_sprite()
+	elif special == RICH_KID or special == RICH_KID_REJECTED:
+		randomize_sprite() #SPECIAL SPRITE!!!
 
 func randomize_sprite():
 	$Sprite/Bottom.frame_coords.y = randi_range(0, 2)
@@ -51,8 +66,6 @@ func randomize_sprite():
 	$Sprite/Top.frame_coords.x = randi_range(0, 3)
 
 func _process(delta: float) -> void:
-	Engine.time_scale = 1
-	
 	time += delta
 	if not leave_ready and state == ORBITING:
 		time_on_orbit -= delta
@@ -77,23 +90,23 @@ func _process(delta: float) -> void:
 	
  
 func _physics_process(delta: float) -> void:
-	$Label.text = str(engine_type)
-	if rotation_direction(position, last_frame_pos, get_parent().planet.position, delta) != engine_type:
+	#$Label.text = str(engine_type)
+	if rotation_direction(position, last_frame_pos, game.planet.position, delta) != engine_type:
 		linear_damp = 0.3
 	else:
 		linear_damp = 0.0
 	
 	var distance = (game.station.position - game.planet.position).length()
-	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*11.7 - distance**2/10500
+	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*12.3 - distance**2/5500 #*11.7 /9900
 	launch_dir = get_global_mouse_position() - game.station.global_position
 	
 	if state == SETTING:
-		get_parent().station.get_node("Icon").flip_v = (engine_type == -1) #ОЦЕ ЗАМІНИТИ ЗМІНОЮ СПРАЙТА СТАНЦІЇ НА ІНШУ СТРІЛОЧКУ
+		game.station.frame = engine_type
 		position = game.station.position
 		if dragging:
-			$DragLine.points[1] = (launch_dir.normalized())*min(max_launch_speed, launch_dir.length())
-			if (global_position-get_global_mouse_position()).length() >= 96:
-				generate_path(-(launch_dir.normalized())*2*min(max_launch_speed, launch_dir.length()))
+			$DragLine.points[1] = (launch_dir.normalized())*min(max_launch_speed*2/3, launch_dir.length())
+			if (global_position-get_global_mouse_position()).length() >= 60:
+				generate_path(-(launch_dir.normalized())*3*min(max_launch_speed*2/3, launch_dir.length()))
 			else:
 				game.station.path.clear_points()
 			
@@ -120,11 +133,11 @@ func _input(event: InputEvent) -> void:
 					dragging = true
 				elif dragging == true:
 					dragging = false
-					if (global_position-get_global_mouse_position()).length() < 96:
+					if (global_position-get_global_mouse_position()).length() < 60:
 						$DragLine.points[1] = Vector2.ZERO
 						return
 					state = ORBITING
-					linear_velocity = -(launch_dir.normalized())*2*min(max_launch_speed, launch_dir.length())
+					linear_velocity = -(launch_dir.normalized())*3*min(max_launch_speed*2/3, launch_dir.length())
 					$DragLine.hide()
 					game.station.launched()
 					collision_layer = 0b00000001
@@ -132,6 +145,7 @@ func _input(event: InputEvent) -> void:
 					$Trail.show()
 					game.station.path.clear_points()
 					game.change_score(launch_reward)
+					game.station.frame = 0
 					#linear_velocity = Vector2.RIGHT*(sqrt(.2e10/mass/(global_position - $"../Center".global_position).length()))*1.25
 
 func generate_path(velocity):
@@ -142,24 +156,27 @@ func generate_path(velocity):
 	var accel = Vector2.ZERO
 	game.station.path.clear_points()
 	game.station.path.modulate = Color.WHITE
-	
-	if velocity.y * engine_type > 0:
-		game.station.path.modulate = Color.RED
+	var wrong = velocity.y * engine_type > 0
+	if wrong:
+		game.station.path.modulate = Color.DARK_ORANGE
+		
 	
 	for x in 128:
 		game.station.path.add_point(pos)
 		accel = ((center_position - pos).normalized() * GMm/((center_position - pos).length()**2))/mass
 		velocity += accel*delta
+		if wrong: velocity *= 0.995
 		pos += velocity*delta
-		if (center_position - pos).length() <= 105:
-			game.station.path.modulate = Color.RED
+		if (center_position - pos).length() <= 98:
+			game.station.path.modulate = Color.RED if not wrong else Color.DARK_ORANGE
 			break
 	for x in 1024:
 		accel = ((center_position - pos).normalized() * GMm/((center_position - pos).length()**2))/mass
 		velocity += accel*delta
+		if wrong: velocity *= 0.995
 		pos += velocity*delta
-		if (center_position - pos).length() <= 105:
-			game.station.path.modulate = Color.RED
+		if (center_position - pos).length() <= 98:
+			game.station.path.modulate = Color.RED if not wrong else Color.DARK_ORANGE
 			break
 
 func rotation_direction(p, last_p, center, dt):
@@ -176,5 +193,11 @@ func rotation_direction(p, last_p, center, dt):
 
 func _on_capture_area_body_entered(_body: Node2D) -> void:
 	if leave_ready:
+		if special == RICH_KID:
+			if game.rich_kid_satisfied:
+				game.change_score(randi_range(min_tip*1.2, max_tip))
+			else:
+				game.change_score(0)
+		if tutorial:
+			get_tree().get_first_node_in_group("game").catched()
 		queue_free()
-		game.change_score(randi_range(min_tip, max_tip))

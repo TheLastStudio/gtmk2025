@@ -12,6 +12,7 @@ func transition():
 	).set_ease(Tween.EASE_OUT)
 	
 	await tween.finished
+	await get_tree().process_frame
 	transit.emit()
 	
 	tween = get_tree().create_tween()
@@ -20,4 +21,5 @@ func transition():
 	).set_ease(Tween.EASE_IN)
 	
 	await tween.finished
+	await get_tree().process_frame
 	$ColorRect.hide()

@@ -3,6 +3,9 @@ extends Node
 const MAIN_MENU = preload("res://ui/main_menu/main_menu.tscn")
 const GAME = preload("res://game.tscn")
 const LOOSE_SCREEN = preload("res://ui/loose_screen/loose_screen.tscn")
+const TUTORIAL = preload("res://entities/tutorial/tutorial.tscn")
+const CURSOR_V_4 = preload("res://CursorV4.png")
+const CURSOR_V_5 = preload("res://CursorV5.png")
 
 @onready var scene : Node = $MainMenu
 @onready var transitions: CanvasLayer = $Transitions
@@ -10,6 +13,7 @@ const LOOSE_SCREEN = preload("res://ui/loose_screen/loose_screen.tscn")
 var player_name = "X"
 
 func _ready() -> void:
+	player_name = "Employee"+str(randi_range(100,999))
 	Dialogic.signal_event.connect(_on_dialogic_signal)
 	
 	SilentWolf.configure({
@@ -21,7 +25,14 @@ func _ready() -> void:
 	var sw_result: Dictionary = await SilentWolf.Scores.get_scores().sw_get_scores_complete
 	print("Scores: " + str(sw_result.scores))
 	scene.setup_leaderboard()
-	
+
+
+func _process(delta: float) -> void:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		DisplayServer.cursor_set_custom_image(CURSOR_V_5, DisplayServer.CURSOR_ARROW, Vector2(23,7))
+	else:
+		DisplayServer.cursor_set_custom_image(CURSOR_V_4, DisplayServer.CURSOR_ARROW, Vector2(23,7))
+
 
 func change_scene(scene_file: Resource):
 	transitions.transition()
@@ -57,8 +68,19 @@ func loose():
 
 func _on_dialogic_signal(argument: String):
 	match argument:
+		"intro_name":
+			if str(Dialogic.VAR.name) == "":
+				Dialogic.VAR.set_variable("name", player_name)
+				Dialogic.VAR.set_variable("name_success", true)
+			elif Words.contains_forbidden_words(str(Dialogic.VAR.name)):
+				Dialogic.VAR.set_variable("name_success", false)
+			else:
+				Dialogic.VAR.set_variable("name_success", true)
 		"intro_ended":
-			await change_scene(GAME)
+			if Dialogic.VAR.tutorial:
+				await change_scene(TUTORIAL)
+			else:
+				await change_scene(GAME)
 			player_name = Dialogic.VAR.name
 		"richkid_yes":
 			scene.process_mode = Node.PROCESS_MODE_INHERIT

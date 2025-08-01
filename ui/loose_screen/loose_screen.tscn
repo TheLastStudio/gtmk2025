@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6gt38gkwqwsa"]
+[gd_scene load_steps=3 format=3 uid="uid://b6gt38gkwqwsa"]
 
+[ext_resource type="Theme" uid="uid://d3sgghybuwqka" path="res://ui/theme.tres" id="1_2dln5"]
 [ext_resource type="Script" uid="uid://ehvck80xroor" path="res://ui/loose_screen/loose_screen.gd" id="1_jnu8p"]
 
 [node name="LooseScreen" type="CanvasLayer"]
@@ -11,28 +12,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_2dln5")
 script = ExtResource("1_jnu8p")
 
-[node name="Lifetime" type="Label" parent="LooseScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LooseScreen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -709.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 128
+alignment = 1
+
+[node name="Lifetime" type="Label" parent="LooseScreen/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 96
 text = "day 12345"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="LooseScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="LooseScreen/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 96
 text = "You lost!
 We dismembered you and
@@ -40,21 +41,28 @@ sold your organs to pay your debt!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Menu" type="Button" parent="LooseScreen"]
-layout_mode = 0
-offset_left = 394.0
-offset_top = 807.0
-offset_right = 713.0
-offset_bottom = 965.0
-text = "Main menu"
+[node name="MarginContainer" type="MarginContainer" parent="LooseScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 32
 
-[node name="Restart" type="Button" parent="LooseScreen"]
-layout_mode = 0
-offset_left = 1125.0
-offset_top = 825.0
-offset_right = 1444.0
-offset_bottom = 983.0
+[node name="HBoxContainer" type="HBoxContainer" parent="LooseScreen/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Menu" type="Button" parent="LooseScreen/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 115
+text = "Main Menu"
+
+[node name="Restart" type="Button" parent="LooseScreen/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 115
 text = "Restart"
 
-[connection signal="pressed" from="LooseScreen/Menu" to="LooseScreen" method="_on_menu_pressed"]
-[connection signal="pressed" from="LooseScreen/Restart" to="LooseScreen" method="_on_restart_pressed"]
+[connection signal="pressed" from="LooseScreen/VBoxContainer/MarginContainer/HBoxContainer/Menu" to="LooseScreen" method="_on_menu_pressed"]
+[connection signal="pressed" from="LooseScreen/VBoxContainer/MarginContainer/HBoxContainer/Restart" to="LooseScreen" method="_on_restart_pressed"]

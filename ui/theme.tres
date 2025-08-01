@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://d3sgghybuwqka"]
+
+[ext_resource type="FontFile" uid="uid://hia2msinyuwn" path="res://ui/KellySlab-Regular.ttf" id="1_rqugq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqugq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jf26r"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6lx7k"]
+bg_color = Color(0.775063, 0.775063, 0.775063, 1)
+
+[resource]
+default_font = ExtResource("1_rqugq")
+Button/font_sizes/font_size = 64
+Button/styles/focus = SubResource("StyleBoxEmpty_rqugq")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_jf26r")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_6lx7k")

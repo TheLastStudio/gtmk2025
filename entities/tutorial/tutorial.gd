@@ -1,13 +1,12 @@
 extends Node2D
-class_name Game
+class_name Tutorial
 
 @onready var planet: Planet = $Planet
 @onready var station: Station = $Station
 @onready var ui: Control = $UI/UI
-@onready var score_label: Label = $UI/UI/Score
-@onready var loop_progress: TextureProgressBar = $UI/UI/LoopProgress
+@onready var score_label: Label = %Score
+@onready var loop_progress: TextureProgressBar = %LoopProgress
 @onready var camera: Camera2D = $Planet/Camera2D
-@onready var pause_menu: Control = $PauseMenu/PauseMenu
 
 
 @export var score := 150
@@ -17,13 +16,20 @@ class_name Game
 var score_label_current_value: int = score
 var loop_timer: float = seconds_in_loop
 
-var lifetime := 0.0
-
 var screen_space = {}
 
-var on_exit_timer = false
+enum {
+	DIALOG1,
+	FIRST_LAUNCHES,
+	DIALOG2,
+	CATCH,
+	FINISH,
+	LOOSE
+}
 
-var rich_kid_satisfied = false
+var state = DIALOG1
+
+var lifetime := 0.0
 
 func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("screen_space"):
@@ -33,27 +39,34 @@ func _ready() -> void:
 			"Error":
 				screen_space["error"] = node
 	
-	var tc = Car.new()
-	$UI/UI/Rules.text = "Launch payment: {0}¥\nTip: from {1}¥ to {2}¥\nFine: from {3}¥ to {4}¥\nLoan payment: {5}¥ each {6}s".format(
-		[tc.launch_reward*100, tc.min_tip*100, tc.max_tip*100, tc.min_fine*100, tc.max_fine*100, per_loop_payment*100, seconds_in_loop]
-	)
+	Dialogic.signal_event.connect(_on_dialogic_signal)
+	Dialogic.start("tutorial1")
+	
 
 func _process(delta: float) -> void:
 	score_label_progress()
-	
-	loop_timer -= delta
+	if state == FIRST_LAUNCHES:
+		loop_timer -= delta
+		for c in get_children():
+			if c is Car:
+				if c.leave_ready:
+					for cc in get_children():
+						if cc is Car:
+							cc.process_mode = Node.PROCESS_MODE_DISABLED
+					state = DIALOG2
+					Dialogic.start("tutorial2")
+					return
+	elif state == CATCH:
+		loop_timer -= delta
+		
 	loop_progress.value = loop_timer / seconds_in_loop
 	if loop_timer <= 0:
 		loop_timer = seconds_in_loop
 		loop_events_trigger()
 	
-	if score_label_current_value < 0 and not on_exit_timer:
-		on_exit_timer = true
-		get_tree().get_first_node_in_group("main").loose()
-	
-	lifetime += delta
-	$UI/UI/Lifetime.text = "Loops survived: " + str(snapped(lifetime/seconds_in_loop, 0.1))
-
+	if score_label_current_value < 0 and state != LOOSE:
+		state = LOOSE
+		Dialogic.start("tutorialL")
 
 func score_label_progress():
 	score_label_current_value += sign(score-score_label_current_value)
@@ -95,6 +108,38 @@ func change_score(value: int):
 	number.queue_free()
 
 
-func _on_rich_kid_satisfied() -> void:
-	change_score(randi_range(25,45))
-	rich_kid_satisfied = true
+func catched():
+	state = FINISH
+	for cc in get_children():
+		if cc is Car:
+			cc.set_deferred("process_mode", Node.PROCESS_MODE_DISABLED)
+	await get_tree().create_timer(.6).timeout
+	Dialogic.start("tutorial3")
+	
+
+
+func _on_dialogic_signal(argument: String):
+	match argument:
+		"tutorial_showui":
+			get_tree().create_tween().tween_property($UI/UI, "modulate:a", 1.0, .5)
+		"tutorial_showid":
+			station.frame = 1
+		"tutorial_hideid":
+			station.frame = 0
+		"tutorial1_showbtn":
+			get_tree().create_tween().tween_property($Station/ButtonsV2, "modulate:a", 1.0, .5)
+		"tutorial1_ended":
+			state = FIRST_LAUNCHES
+			station.new_car()
+			await get_tree().create_timer(2).timeout
+			get_tree().create_tween().tween_property($Station/ButtonsV2, "modulate:a", 0.0, .5)
+		"tutorial2_ended":
+			state = CATCH
+			for cc in get_children():
+				if cc is Car:
+					cc.set_deferred("process_mode", Node.PROCESS_MODE_INHERIT)
+		"tutorial3_ended":
+			get_tree().get_first_node_in_group("main").change_scene(get_tree().get_first_node_in_group("main").GAME)
+		"tutorialL_ended":
+			get_tree().get_first_node_in_group("main").to_menu()
+			

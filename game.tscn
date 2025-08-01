@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://djg7ft3gpulu7"]
+[gd_scene load_steps=11 format=3 uid="uid://djg7ft3gpulu7"]
 
 [ext_resource type="Script" uid="uid://cw777k0ca7873" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://ctdwdxtftnh6l" path="res://entities/planet/planet.tscn" id="2_e2o6t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://p61ove7wwt04" path="res://entities/game_camera.gd" id="4_ryrav"]
 [ext_resource type="PackedScene" uid="uid://f6p1pgcomb87" path="res://ui/circle_progress_bar/ui_circle_progress_bar.tscn" id="5_7jktm"]
 [ext_resource type="PackedScene" uid="uid://pflq4g5duh7p" path="res://entities/car/key_point_special.tscn" id="6_eow3j"]
+[ext_resource type="Theme" uid="uid://d3sgghybuwqka" path="res://ui/theme.tres" id="7_vef74"]
 [ext_resource type="Script" uid="uid://c2oaw7kyqdn3e" path="res://ui/pause_menu.gd" id="8_j5wjh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eow3j"]
@@ -16,6 +17,7 @@ radius = 16.0
 script = ExtResource("1_80nbo")
 
 [node name="NightSky" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(964, 508)
 texture = ExtResource("2_fc0e3")
 
@@ -67,7 +69,17 @@ debug_color = Color(0.943121, 6.54578e-06, 0.603064, 0.42)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="LoopProgress" parent="UI" instance=ExtResource("5_7jktm")]
+[node name="UI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_vef74")
+
+[node name="LoopProgress" parent="UI/UI" instance=ExtResource("5_7jktm")]
+layout_mode = 0
 offset_left = 109.0
 offset_top = 46.0
 offset_right = 237.0
@@ -75,7 +87,8 @@ offset_bottom = 174.0
 max_value = 1.0
 step = 0.001
 
-[node name="Label" type="Label" parent="UI"]
+[node name="Label" type="Label" parent="UI/UI"]
+layout_mode = 0
 offset_left = 282.0
 offset_top = 68.0
 offset_right = 788.0
@@ -83,7 +96,8 @@ offset_bottom = 102.0
 theme_override_font_sizes/font_size = 24
 text = "<- time until the next loan interest payment"
 
-[node name="Score" type="Label" parent="UI"]
+[node name="Score" type="Label" parent="UI/UI"]
+layout_mode = 0
 offset_left = 88.0
 offset_top = 198.0
 offset_right = 234.0
@@ -92,7 +106,8 @@ theme_override_font_sizes/font_size = 64
 text = "150¥"
 metadata/_edit_use_anchors_ = true
 
-[node name="Rules" type="Label" parent="UI"]
+[node name="Rules" type="Label" parent="UI/UI"]
+layout_mode = 0
 offset_left = 1455.0
 offset_top = 916.0
 offset_right = 1910.0
@@ -103,7 +118,8 @@ wifwoeifjowjeiof
 wefwoeifjowiejf
 t67567"
 
-[node name="Lifetime" type="Label" parent="UI"]
+[node name="Lifetime" type="Label" parent="UI/UI"]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -120,38 +136,63 @@ layer = 3
 process_mode = 3
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_left = 577.0
-offset_top = 494.0
-offset_right = 617.0
-offset_bottom = 534.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_vef74")
 script = ExtResource("8_j5wjh")
 
-[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/PauseMenu"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.5
+offset_top = -177.0
+offset_right = 142.5
+offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PauseMenu/PauseMenu/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/PauseMenu/PanelContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PauseMenu/PanelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 16
 
-[node name="Resume" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="PauseMenu/PauseMenu/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
 
-[node name="Restart" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="PauseMenu/PauseMenu/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
 
-[node name="Quit" type="Button" parent="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="PauseMenu/PauseMenu/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
+[node name="BGDark" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect3" type="ColorRect" parent="BGDark"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.282353)
+
 [connection signal="satisfied" from="RichKid" to="." method="_on_rich_kid_satisfied"]
-[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Resume" to="PauseMenu/PauseMenu" method="resume"]
-[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Restart" to="PauseMenu/PauseMenu" method="restart"]
-[connection signal="pressed" from="PauseMenu/PauseMenu/MarginContainer/PanelContainer/VBoxContainer/Quit" to="PauseMenu/PauseMenu" method="quit"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PanelContainer/MarginContainer/VBoxContainer/Resume" to="PauseMenu/PauseMenu" method="resume"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PanelContainer/MarginContainer/VBoxContainer/Restart" to="PauseMenu/PauseMenu" method="restart"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PanelContainer/MarginContainer/VBoxContainer/Quit" to="PauseMenu/PauseMenu" method="quit"]
