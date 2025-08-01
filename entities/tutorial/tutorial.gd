@@ -52,6 +52,10 @@ func _process(delta: float) -> void:
 				if c.leave_ready:
 					for cc in get_children():
 						if cc is Car:
+							if cc.state == cc.SETTING:
+								cc.hide()
+								cc.queue_free()
+								station.path.clear_points()
 							cc.process_mode = Node.PROCESS_MODE_DISABLED
 					state = DIALOG2
 					Dialogic.start("tutorial2")
@@ -64,7 +68,7 @@ func _process(delta: float) -> void:
 		loop_timer = seconds_in_loop
 		loop_events_trigger()
 	
-	if score_label_current_value < 0 and state != LOOSE:
+	if score_label_current_value < 0 and state != LOOSE and (state == FIRST_LAUNCHES or state == CATCH):
 		state = LOOSE
 		Dialogic.start("tutorialL")
 
@@ -131,13 +135,14 @@ func _on_dialogic_signal(argument: String):
 		"tutorial1_ended":
 			state = FIRST_LAUNCHES
 			station.new_car()
-			await get_tree().create_timer(2).timeout
+			await get_tree().create_timer(4.5).timeout
 			get_tree().create_tween().tween_property($Station/ButtonsV2, "modulate:a", 0.0, .5)
 		"tutorial2_ended":
 			state = CATCH
 			for cc in get_children():
 				if cc is Car:
 					cc.set_deferred("process_mode", Node.PROCESS_MODE_INHERIT)
+			station.launched()
 		"tutorial3_ended":
 			get_tree().get_first_node_in_group("main").change_scene(get_tree().get_first_node_in_group("main").GAME)
 		"tutorialL_ended":

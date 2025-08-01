@@ -12,6 +12,8 @@ const CURSOR_V_5 = preload("res://CursorV5.png")
 
 var player_name = "X"
 
+var last_frame_mouse_state = false
+
 func _ready() -> void:
 	player_name = "Employee"+str(randi_range(100,999))
 	Dialogic.signal_event.connect(_on_dialogic_signal)
@@ -27,12 +29,13 @@ func _ready() -> void:
 	scene.setup_leaderboard()
 
 
-func _process(delta: float) -> void:
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		DisplayServer.cursor_set_custom_image(CURSOR_V_5, DisplayServer.CURSOR_ARROW, Vector2(23,7))
-	else:
-		DisplayServer.cursor_set_custom_image(CURSOR_V_4, DisplayServer.CURSOR_ARROW, Vector2(23,7))
-
+func _process(_delta: float) -> void:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) != last_frame_mouse_state:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			DisplayServer.cursor_set_custom_image(CURSOR_V_5, DisplayServer.CURSOR_ARROW, Vector2(23,7))
+		else:
+			DisplayServer.cursor_set_custom_image(CURSOR_V_4, DisplayServer.CURSOR_ARROW, Vector2(23,7))
+	last_frame_mouse_state = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 
 func change_scene(scene_file: Resource):
 	transitions.transition()

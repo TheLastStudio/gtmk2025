@@ -15,11 +15,7 @@ Manager: Get ready to start, {name}!
 - Start tutorial
 	set {tutorial} = true
 	Manager: Ok, let's get started.
-- Start tutorial
-	set {tutorial} = true
-	Manager: Ok, let's get started.
 - Skip intro
 	set {tutorial} = false
 [signal arg="intro_ended"]
 [wait time="0.3"]
-<Empty Text Event>

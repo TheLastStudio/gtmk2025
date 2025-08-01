@@ -198,6 +198,8 @@ func _on_capture_area_body_entered(_body: Node2D) -> void:
 				game.change_score(randi_range(min_tip*1.2, max_tip))
 			else:
 				game.change_score(0)
+		else:
+			game.change_score(randi_range(min_tip, max_tip))
 		if tutorial:
 			get_tree().get_first_node_in_group("game").catched()
 		queue_free()

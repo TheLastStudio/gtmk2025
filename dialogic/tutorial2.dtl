@@ -1,5 +1,5 @@
 join Manager leftmost
-Manager: After a certain time, the on-board computer will illuminate the car for you. This will mean that its owner has returned to your station and you need to return they ship.
+Manager: After a certain time, the on-board computer will illuminate the car for you. This will mean that its owner has returned to your station and you need to return their ship.
 Manager: Simply place the station platform  in the path of the illuminated car, and our systems will catch it.
-Manager: Also, at this point, it is customary for visitors to pay a tip.
+Manager: This is when visitors might pay you a tip (as long as their car is returned without damage).
 [signal arg="tutorial2_ended"]

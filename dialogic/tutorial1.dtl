@@ -1,16 +1,18 @@
 join Manager leftmost
 join X rightmost
-Manager: As you already know, The Corporation runs the space in this galaxy.\
-You are heavily indebted to The Corporation, so we have made the following decision. You will work at our Intergalactic Business Center as a parking attendant. This way you will benefit society and gradually pay off your debt.
+Manager: As you already know, The Corporation Incorporated runs the space in this galaxy.
+Manager: You are heavily indebted to The Corporation, so we have made the following decision\: you will work at our Intergalactic Business Center as a parking attendant. This way you will benefit society and gradually pay off your debt.
 [signal arg="tutorial_showui"]
-Manager: Please note that you will need to pay 7500¥ per solar loop. If you are unable to pay on time, The Corporation will have to take action.
-Manager: The job is elementary. Your station will park the space cars of the Business Center visitors. The cars are powered by black-matter fusion reactors, so we cannot afford to park them on the planet. Your task is to launch them into orbit. The on-board computer will tell you an approximate trajectory.
+Manager: Please note that you will need to pay 7500¥ per solar loop. If you are unable to pay on time, The Corporation Incorporated will have to take action.
+Manager: The job is simple. Your station will park the space cars of the Business Center visitors. The cars are powered by black-matter fusion reactors, so we cannot afford to park them on the planet.
+Manager: Your task is to launch them into orbit. The on-board computer will tell you an approximate trajectory.
 [signal arg="tutorial_showid"]
-Manager: THE MOST IMPORTANT thing you need to monitor is the magnetic direction of the ship's reactor. You don't need to delve into the physics of this process, just remember - some ships need to be launched clockwise, and some counterclockwise. The indicator on the station and the on-board computer will tell you.
+Manager: THE MOST IMPORTANT thing you need to monitor is the magnetic direction of the ship's reactor. You don't need to get into the specifics of the physics, just remember - some ships need to be launched clockwise, and some counterclockwise.
+Manager: The indicator on the station and the on-board computer will tell you.
 [signal arg="tutorial_hideid"]
-Manager: The Corporation has established a fair payment for a 300¥ launch. The reward is final and cannot be adjusted. This is intended to encourage you to be more careful with the cars in order to hope to receive high tips. In the event of a car falling onto the surface of the Business Center, the car will be destroyed, and you will be fined depending on the value of the car.
+Manager: You'll be paid 300¥ per car launch. Your wage is fair and cannot be negotiated. This is to encourage you to take good care of the cars; you will earn most of your profits from tips.
 [signal arg="tutorial1_showbtn"]
 Manager: Now try launching several cars and see how they fly.\
-You can move the station by pressing the left-right arrows or A-D on your control console.\
+You can move the station by pressing the left - right arrows or A - D on your control console.\
 To launch the car, drag it with your mouse cursor.
 [signal arg="tutorial1_ended"]
