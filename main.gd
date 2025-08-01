@@ -75,6 +75,8 @@ func _on_dialogic_signal(argument: String):
 			if str(Dialogic.VAR.name) == "":
 				Dialogic.VAR.set_variable("name", player_name)
 				Dialogic.VAR.set_variable("name_success", true)
+			elif str(Dialogic.VAR.name).length() > 15:
+				Dialogic.VAR.set_variable("name_success", false)
 			elif Words.contains_forbidden_words(str(Dialogic.VAR.name)):
 				Dialogic.VAR.set_variable("name_success", false)
 			else:
