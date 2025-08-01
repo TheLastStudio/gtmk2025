@@ -84,6 +84,7 @@ color = Color(0, 0, 0, 0)
 metadata/_edit_use_anchors_ = true
 
 [node name="Cursor" type="CanvasLayer" parent="."]
+process_mode = 3
 process_priority = -1
 layer = 16
 
