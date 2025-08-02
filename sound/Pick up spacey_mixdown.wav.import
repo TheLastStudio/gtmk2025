@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cnr4teb7w2a0p"
+path="res://.godot/imported/Pick up spacey_mixdown.wav-657a30d9d5ddf32a92b959f192e4dc4d.sample"
+
+[deps]
+
+source_file="res://sound/Pick up spacey_mixdown.wav"
+dest_files=["res://.godot/imported/Pick up spacey_mixdown.wav-657a30d9d5ddf32a92b959f192e4dc4d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

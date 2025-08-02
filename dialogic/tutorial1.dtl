@@ -3,7 +3,7 @@ join X rightmost
 Manager: As you already know, The Corporation Incorporated runs the space in this galaxy.
 Manager: You are heavily indebted to The Corporation, so we have made the following decision\: you will work at our Intergalactic Business Center as a parking attendant. This way you will benefit society and gradually pay off your debt.
 [signal arg="tutorial_showui"]
-Manager: Please note that you will need to pay 7500¥ per solar loop. If you are unable to pay on time, The Corporation Incorporated will have to take action.
+Manager: Please note that you will need to pay 7500¥ per solar loop. If you are unable to pay on time, The Corporation Incorporated will have to take action. You need to work at least 14 loops to pay off the entire debt.
 Manager: The job is simple. Your station will park the space cars of the Business Center visitors. The cars are powered by black-matter fusion reactors, so we cannot afford to park them on the planet.
 Manager: Your task is to launch them into orbit. The on-board computer will tell you an approximate trajectory.
 [signal arg="tutorial_showid"]

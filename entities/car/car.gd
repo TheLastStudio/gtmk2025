@@ -41,12 +41,22 @@ enum  {
 	NONE,
 	RICH_KID,
 	RICH_KID_REJECTED,
-	FAMILY
+	FAMILY,
+	VIRUS,
+	CORP,
+	UNKNOWN
 }
 
 var special = NONE
 
 var family_denomination_power = 0
+var is_target = false :
+	set(value):
+		is_target = value
+		if value:
+			target_count = time
+
+var target_count = -1
 
 
 func _ready() -> void:
@@ -56,7 +66,7 @@ func _ready() -> void:
 	#modulate = Color(randf(), randf(), randf())
 	time_on_orbit = randf_range(min_time_on_orbit, max_time_on_orbit)
 	if tutorial: time_on_orbit = 12.5
-	time_until_lost = time_on_orbit*2.5
+	time_until_lost = time_on_orbit*1.7
 	if special == NONE:
 		randomize_sprite()
 	elif special == RICH_KID or special == RICH_KID_REJECTED:
@@ -70,6 +80,24 @@ func _ready() -> void:
 		$FamilyFar.body_exited.connect(_on_far_family_exited)
 		$FamilyClose.body_entered.connect(_on_close_family_entered)
 		$FamilyClose.body_exited.connect(_on_close_family_exited)
+	elif special == VIRUS:
+		game.station.infected += 1
+		$ShipsSpecialV1.show()
+		$ShipsSpecialV1.frame = 3
+		min_tip = 18
+		max_tip = 28
+	elif special == CORP:
+		$ShipsSpecialV1.show()
+		$ShipsSpecialV1.frame = 0
+		min_fine = 40
+		max_fine = 60
+	elif special == UNKNOWN:
+		min_fine = 0
+		max_fine = 0
+		min_tip = 0
+		max_tip = 0
+		$ShipsSpecialV1.show()
+		$ShipsSpecialV1.frame = 1
 
 func randomize_sprite():
 	$Sprite.show()
@@ -84,25 +112,28 @@ func _process(delta: float) -> void:
 		time_on_orbit -= delta
 		if time_on_orbit <= 0:
 			leave_ready = true
+			game.play_pick_up_notify()
 			count = time
 	elif leave_ready:
 		if time > count:
 			count += 1
-			var pickup = pickup_indicator.instantiate()
-			add_child(pickup)
+			add_child(pickup_indicator.instantiate())
 		#modulate = Color(randf(), randf(), randf())
 	if state == ORBITING:
 		time_until_lost -= delta
 		if time_until_lost <= 0:
 			game.change_score(randi_range(-max_fine, -min_fine))
 			game.camera.apply_shake()
-			print(get_parent().name)
 			queue_free()
 	
 	if special == FAMILY and state == ORBITING:
 		max_tip -= family_denomination_power * delta
-		#$Label.show()
-		#$Label.text = str(int(max_tip))
+	
+	if is_target and time > target_count:
+		target_count += 1
+		var pickup = pickup_indicator.instantiate()
+		pickup.modulate = Color.RED
+		add_child(pickup)
  
 func _physics_process(delta: float) -> void:
 	#if state != SETTING: print(linear_velocity.length(),"  ",linear_damp)
@@ -135,11 +166,30 @@ func _physics_process(delta: float) -> void:
 			if b.name == "Planet":
 				game.change_score(randi_range(-max_fine, -min_fine))
 				game.camera.apply_shake()
-				get_parent().play_car_death()
+				if special == CORP:
+					game.station.corp_destroyed += 1
+				elif special == RICH_KID:
+					game.station.richkid_dead = true
+				if is_target:
+					game.station.unknown_task_done = true
+					game.station.unknown_task = false
+					game.station.unknown_task_timer = 21
+				game.play_car_death()
 				queue_free()
-			else:
+			elif b is Car:
 				get_parent().play_car_bump()
-				max_tip = 0 if max_tip == 2 else 2
+				if special == VIRUS:
+					pass
+				elif b.special == VIRUS:
+					special = VIRUS
+					$Sprite.hide()
+					$ShipsSpecialV1.show()
+					$ShipsSpecialV1.frame = 3
+					if not b.is_target:
+						min_tip = 18
+						max_tip = 28
+				else:
+					max_tip = 0 if max_tip == 2 or is_target or special == UNKNOWN else 2
 	last_frame_pos = position
 
 var dragging := false
@@ -164,6 +214,7 @@ func _input(event: InputEvent) -> void:
 					game.station.path.clear_points()
 					game.change_score(launch_reward)
 					game.station.frame = 0
+					game.play_car_launched()
 					#linear_velocity = Vector2.RIGHT*(sqrt(.2e10/mass/(global_position - $"../Center".global_position).length()))*1.25
 
 func generate_path(velocity):
@@ -225,24 +276,28 @@ func _on_capture_area_body_entered(_body: Node2D) -> void:
 		else:
 			game.change_score(randi_range(min_tip, max_tip))
 		if tutorial:
-			get_tree().get_first_node_in_group("game").catched()
-		print(get_parent().name)
+			game.catched()
+		game.play_cash_added()
 		queue_free()
 		
 
 
 func _on_far_family_entered(body):
 	if body == self: return
-	family_denomination_power += 3
+	if body is Car and body.state == SETTING: return
+	family_denomination_power += 2
 
 func _on_far_family_exited(body):
 	if body == self: return
-	family_denomination_power -= 3
+	if body is Car and body.state == SETTING: return
+	family_denomination_power -= 2
 
 func _on_close_family_entered(body):
 	if body == self: return
-	family_denomination_power += 5
+	if body is Car and body.state == SETTING: return
+	family_denomination_power += 4
 
 func _on_close_family_exited(body):
 	if body == self: return
-	family_denomination_power -= 5
+	if body is Car and body.state == SETTING: return
+	family_denomination_power -= 4

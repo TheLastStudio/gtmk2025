@@ -17,12 +17,15 @@ var score_label_current_value: int = score
 var loop_timer: float = seconds_in_loop
 
 var lifetime := 0.0
+var loop_n = 0
 
 var screen_space = {}
 
 var on_exit_timer = false
 
 var rich_kid_satisfied = false
+
+var corp_win_rejected = false
 
 func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("screen_space"):
@@ -61,15 +64,17 @@ func score_label_progress():
 	score_label.text = str(score_label_current_value*100)+"¥"
 
 func loop_events_trigger():
+	loop_n += 1
 	change_score(-per_loop_payment)
+	play_cash_subtracted()
+	if loop_n >= 14 and not corp_win_rejected:
+		await get_tree().create_timer(1).timeout
+		if not on_exit_timer and score >= 0:
+			Dialogic.start("corp2")
+			process_mode = Node.PROCESS_MODE_DISABLED
 
 func change_score(value: int):
 	score += value
-	
-	if value > 0:
-		play_cash_added()
-	elif value < 0:
-		play_cash_subtracted()
 	
 	var number = Label.new()
 	number.position = score_label.position
@@ -103,19 +108,21 @@ func change_score(value: int):
 
 func play_cash_subtracted():
 	$cash_subtracted_player.play()
-	print('[Cash Subtracted SFX]')
-	# (поки не готовий ефект)
 
 func play_cash_added():
 	$cash_added_player.play()
-	print('[Cash Added SFX]')
-	# (поки не готовий ефект)
 
 func play_car_bump():
 	$car_bump_player.play()
 
 func play_car_death():
 	$car_death_player.play()
+
+func play_car_launched():
+	$car_launched_player.play()
+
+func play_pick_up_notify():
+	$pick_up_notify_player.play()
 
 
 func _on_rich_kid_satisfied() -> void:

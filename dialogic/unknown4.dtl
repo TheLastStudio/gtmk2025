@@ -1,0 +1,10 @@
+join X rightmost
+Unknown: Hi, valet.
+Unknown: Ready to say goodbye to this job?
+- Yes (7500¥) (win) | [if {score} >= 75.0] [else="disable"]
+	[wait time="0.3"]
+	[signal arg="finale"]
+- No.  (continue in endless mode)
+	Unknown: Very bad.
+	leave --All--
+	[signal arg="unknown4_ended"]

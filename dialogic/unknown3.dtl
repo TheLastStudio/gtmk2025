@@ -1,0 +1,11 @@
+join Unknown leftmost
+join X rightmost
+Unknown: Hi, valet.
+Unknown: Ready to say goodbye to this job?
+- Yes (5000¥) (win) | [if {score} >= 50.0] [else="disable"]
+	[wait time="0.3"]
+	[signal arg="finale"]
+- No.  (continue)
+	Unknown: Very bad. We can give you another chance, after one loop. But the price will be higher, 7000¥.
+	leave --All--
+	[signal arg="unknown3_ended"]

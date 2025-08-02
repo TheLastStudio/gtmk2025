@@ -1,0 +1,12 @@
+join Corp leftmost
+join X rightmost
+Corp: Congratulations, {name}! You have successfully paid your debt to The Corporation Incorporated.
+Corp: You can return to your family, see your wife, daughter, and whatever else you usually do. The vacation will last half a day, after which you should return to work.
+Corp: Good luck!
+X: Thank you!
+- Accept. (win)
+	[wait time="0.3"]
+	[signal arg="finale"]
+- Take new debt.  (continue in endless mode)
+	leave --All--
+	[signal arg="corp2_ended"]

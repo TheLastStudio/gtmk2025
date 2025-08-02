@@ -4,12 +4,12 @@ Corp: Greetings, conscientious employee. We are going to leave important files o
 Corp: If you lose them, you will be heavily fined. Is that clear?
 X: Everything is clear.
 leave Corp
-[wait time="1.0"]
+[wait time="1.8"]
 join Unknown leftmost
 Unknown: Hey, valet...
 [wait time="1.0"]
-Unknown: I see you have a Corporation ship parked here...
-Unknown: And I also see that you owe the Corporation a lot of money.
-Unknown: Just know that if something happens to that ship, someone might suddenly decide to help you sort out your debts.
+Unknown: I see you have a Corp car parked here...
+Unknown: And I also see that you owe The Corporation a lot of money.
+Unknown: Just know that if something happens to this and the next Corp car, someone might suddenly decide to help you sort out your debts.
 leave --All--
 [signal arg="corp1_ended"]

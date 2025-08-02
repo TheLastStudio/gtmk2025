@@ -30,6 +30,7 @@ enum {
 var state = DIALOG1
 
 var lifetime := 0.0
+var on_exit_timer = false
 
 func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("screen_space"):
@@ -148,3 +149,21 @@ func _on_dialogic_signal(argument: String):
 		"tutorialL_ended":
 			get_tree().get_first_node_in_group("main").to_menu()
 			
+
+func play_cash_subtracted():
+	$cash_subtracted_player.play()
+
+func play_cash_added():
+	$cash_added_player.play()
+
+func play_car_bump():
+	$car_bump_player.play()
+
+func play_car_death():
+	$car_death_player.play()
+
+func play_car_launched():
+	$car_launched_player.play()
+
+func play_pick_up_notify():
+	$pick_up_notify_player.play()

@@ -1,0 +1,4 @@
+join Corp leftmost
+Corp: Greetings, conscientious employee. We are going to leave important files on our ship. As before, the fine for losing them will be increased.
+leave Corp
+[signal arg="corp0_ended"]

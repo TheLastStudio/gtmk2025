@@ -1,0 +1,27 @@
+join Unknown left
+join X rightmost
+Unknown: Hey, valet...
+Unknown: We have a new task for you.
+Unknown: I'll highlight a car on your onboard computer. Your task is to destroy it before a third of a loop has passed.
+Unknown: You can use our ship to shoot down the target. We'll try to cover your fine.
+- Okay, it'll be done.
+	Unknown: Thank you for your cooperation.
+	[signal arg="unknown1_yes"]
+	[end_timeline]
+- Why would I do this?
+	Unknown: To speed up the process of writing off your debt, isn't that obvious?
+	- Okay, it'll be done.
+		Unknown: Thank you for your cooperation.
+		[signal arg="unknown1_yes"]
+		leave --All--
+		[end_timeline]
+	- No, absolutely not.
+		Unknown: Well, that's your decision.
+		[signal arg="unknown1_no"]
+		leave --All--
+		[end_timeline]
+- No, absolutely not.
+	Unknown: Well, that's your decision.
+	[signal arg="unknown1_no"]
+	leave --All--
+	[end_timeline]

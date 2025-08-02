@@ -1,0 +1,5 @@
+join Unknown leftmost
+Unknown: Thank you for your work! We can start the process of writing off your debt.
+Unknown: I'll be back next cycle. Be prepared to pay 5000¥ and it will be done right away.
+leave --All--
+[signal arg="unknown2_ended"]

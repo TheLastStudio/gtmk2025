@@ -52,13 +52,13 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="Menu" type="Button" parent="LooseScreen/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Menu" type="Button" parent="LooseScreen/VBoxContainer/MarginContainer/HBoxContainer" groups=["buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 115
 text = "Main Menu"
 
-[node name="Restart" type="Button" parent="LooseScreen/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Restart" type="Button" parent="LooseScreen/VBoxContainer/MarginContainer/HBoxContainer" groups=["buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 115

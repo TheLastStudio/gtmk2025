@@ -49,6 +49,7 @@ shape = SubResource("CircleShape2D_1ang0")
 
 [node name="ShipsSpecialV1" type="Sprite2D" parent="."]
 visible = false
+z_index = 1
 texture_filter = 1
 scale = Vector2(2, 2)
 texture = ExtResource("4_qxogl")
