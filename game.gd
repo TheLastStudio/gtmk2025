@@ -19,6 +19,9 @@ var loop_timer: float = seconds_in_loop
 var lifetime := 0.0
 var loop_n = 0
 
+enum {OLD, NEW}
+var control_scheme = OLD
+
 var screen_space = {}
 
 var on_exit_timer = false

@@ -35,6 +35,8 @@ var tutorial = false
 
 var start_pos = Vector2.ZERO
 
+
+
 @onready var key_point_area: Area2D = $KeyPointArea
 
 var pickup_indicator = preload("res://entities/car/pickup__indicator.tscn")
@@ -147,13 +149,14 @@ func _physics_process(delta: float) -> void:
 	var distance = (game.station.position - game.planet.position).length()
 	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*12.4 - distance**2/8500 #*11.7 /9900
 	launch_dir = get_global_mouse_position() - start_pos #- game.station.global_position
-	$Label.text = str(start_pos, get_global_mouse_position())
 	
 	if state == SETTING:
 		game.station.frame = engine_type
 		position = game.station.position
 		if dragging:
-			$DragLine.points[1] = (launch_dir.normalized())*min(max_launch_speed*2/3, launch_dir.length())
+			$DragLine.points[0] = start_pos - game.station.global_position
+			$DragLine.points[1] = (launch_dir.normalized())*min(max_launch_speed*2/3, launch_dir.length()) + start_pos - game.station.global_position
+			$Label.text = str((launch_dir.normalized())*min(max_launch_speed*2/3, launch_dir.length()) + start_pos - game.station.global_position)
 			if (global_position-get_global_mouse_position()).length() >= 60:
 				generate_path(-(launch_dir.normalized())*3*min(max_launch_speed*2/3, launch_dir.length()))
 			else:
