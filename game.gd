@@ -9,7 +9,6 @@ class_name Game
 @onready var camera: Camera2D = $Planet/Camera2D
 @onready var pause_menu: Control = $PauseMenu/PauseMenu
 
-
 @export var score := 150
 @export var per_loop_payment := 75
 @export var seconds_in_loop := 60
@@ -39,6 +38,8 @@ func _ready() -> void:
 	)
 
 func _process(delta: float) -> void:
+	get_parent().space.position.x = -240 - station.position.x/20
+	
 	score_label_progress()
 	
 	loop_timer -= delta
@@ -64,6 +65,11 @@ func loop_events_trigger():
 
 func change_score(value: int):
 	score += value
+	
+	if value > 0:
+		play_cash_added()
+	elif value < 0:
+		play_cash_subtracted()
 	
 	var number = Label.new()
 	number.position = score_label.position
@@ -93,6 +99,23 @@ func change_score(value: int):
 	
 	await tween.finished
 	number.queue_free()
+
+
+func play_cash_subtracted():
+	$cash_subtracted_player.play()
+	print('[Cash Subtracted SFX]')
+	# (поки не готовий ефект)
+
+func play_cash_added():
+	$cash_added_player.play()
+	print('[Cash Added SFX]')
+	# (поки не готовий ефект)
+
+func play_car_bump():
+	$car_bump_player.play()
+
+func play_car_death():
+	$car_death_player.play()
 
 
 func _on_rich_kid_satisfied() -> void:

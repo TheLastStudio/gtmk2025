@@ -96,6 +96,7 @@ func _process(delta: float) -> void:
 		if time_until_lost <= 0:
 			game.change_score(randi_range(-max_fine, -min_fine))
 			game.camera.apply_shake()
+			print(get_parent().name)
 			queue_free()
 	
 	if special == FAMILY and state == ORBITING:
@@ -134,8 +135,10 @@ func _physics_process(delta: float) -> void:
 			if b.name == "Planet":
 				game.change_score(randi_range(-max_fine, -min_fine))
 				game.camera.apply_shake()
+				get_parent().play_car_death()
 				queue_free()
 			else:
+				get_parent().play_car_bump()
 				max_tip = 0 if max_tip == 2 else 2
 	last_frame_pos = position
 
@@ -223,7 +226,9 @@ func _on_capture_area_body_entered(_body: Node2D) -> void:
 			game.change_score(randi_range(min_tip, max_tip))
 		if tutorial:
 			get_tree().get_first_node_in_group("game").catched()
+		print(get_parent().name)
 		queue_free()
+		
 
 
 func _on_far_family_entered(body):

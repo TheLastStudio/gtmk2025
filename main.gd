@@ -9,8 +9,11 @@ const CURSOR_V_5 = preload("res://CursorV5.png")
 
 @onready var scene : Node = $MainMenu
 @onready var transitions: CanvasLayer = $Transitions
+@onready var space: TextureRect = $BG/TextureRect
 
 var player_name = "X"
+
+var paralux_speed = Vector2.ZERO
 
 var last_frame_mouse_state = false
 
@@ -29,14 +32,25 @@ func _ready() -> void:
 	scene.setup_leaderboard()
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	pass
+	#if space.visible:
+		#space.position += paralux_speed*delta
+		#paralux_speed *= 0.95
 	#if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) != last_frame_mouse_state:
 	#	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 	#		DisplayServer.cursor_set_custom_image(CURSOR_V_5, DisplayServer.CURSOR_ARROW, Vector2(23,7))
 	#	else:
 	#		DisplayServer.cursor_set_custom_image(CURSOR_V_4, DisplayServer.CURSOR_ARROW, Vector2(23,7))
 	#last_frame_mouse_state = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		var mouse_x = event.position.x
+		var mouse_y = event.position.y
+		var relative_x = (mouse_x - 960) / 960
+		var relative_y = (mouse_y - 540) / 540
+		paralux_speed -= Vector2(relative_x, relative_y)*15
 
 func change_scene(scene_file: Resource):
 	transitions.transition()
