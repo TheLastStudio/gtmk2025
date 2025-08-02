@@ -196,4 +196,3 @@ func _on_value_focus_entered() -> void:
 	%Value.select_all.call_deferred()
 
 #endregion
-

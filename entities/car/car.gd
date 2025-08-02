@@ -33,6 +33,8 @@ var count = -1
 
 var tutorial = false
 
+var start_pos = Vector2.ZERO
+
 @onready var key_point_area: Area2D = $KeyPointArea
 
 var pickup_indicator = preload("res://entities/car/pickup__indicator.tscn")
@@ -137,7 +139,6 @@ func _process(delta: float) -> void:
  
 func _physics_process(delta: float) -> void:
 	#if state != SETTING: print(linear_velocity.length(),"  ",linear_damp)
-	#$Label.text = str(engine_type)
 	if rotation_direction(position, last_frame_pos, game.planet.position, delta) == -engine_type and state == ORBITING:
 		linear_damp = 0.3
 	else:
@@ -145,7 +146,8 @@ func _physics_process(delta: float) -> void:
 	
 	var distance = (game.station.position - game.planet.position).length()
 	max_launch_speed = base_max_launch_speed*sqrt(1/distance)*12.4 - distance**2/8500 #*11.7 /9900
-	launch_dir = get_global_mouse_position() - game.station.global_position
+	launch_dir = get_global_mouse_position() - start_pos #- game.station.global_position
+	$Label.text = str(start_pos, get_global_mouse_position())
 	
 	if state == SETTING:
 		game.station.frame = engine_type
@@ -198,6 +200,7 @@ func _input(event: InputEvent) -> void:
 		if event is InputEventMouseButton:
 			if event.button_index == 1:
 				if event.pressed:
+					start_pos = get_global_mouse_position()
 					dragging = true
 				elif dragging == true:
 					dragging = false
