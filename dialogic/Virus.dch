@@ -13,11 +13,11 @@
 &"display_name": "Space Virus",
 &"mirror": false,
 &"nicknames": [""],
-&"offset": Vector2(0, 0),
+&"offset": Vector2(-330, -50),
 &"portraits": {
 "Main": {
 "export_overrides": {
-"image": "\"res://icon.svg\""
+"image": "\"res://entities/characters/CosmoVirus.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),
@@ -25,5 +25,5 @@
 "scene": ""
 }
 },
-&"scale": 1.0
+&"scale": 0.75
 }

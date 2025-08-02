@@ -177,7 +177,7 @@ func launched():
 	if event_timer <= 0:
 		event_timer = randf_range(event_time_min, event_time_max)
 		
-		if len(event_pool) > 0:
+		if len(event_pool) == 0:
 			event_pool = [RICH_KID, CORP0, FAMILY, VIRUS0, NONE, NONE]+[RICH_KID, CORP0, FAMILY, VIRUS0, NONE, NONE]
 			event_pool.shuffle()
 		

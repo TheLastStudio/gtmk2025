@@ -94,6 +94,7 @@ max_value = 1.0
 step = 0.001
 
 [node name="Label" type="Label" parent="UI/UI"]
+visible = false
 layout_mode = 0
 offset_left = 282.0
 offset_top = 68.0
@@ -103,16 +104,21 @@ theme_override_font_sizes/font_size = 24
 text = "<- time until the next loan interest payment"
 
 [node name="Score" type="Label" parent="UI/UI"]
-layout_mode = 0
-offset_left = 88.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0552083
+anchor_right = 0.0463542
+offset_left = 109.0
 offset_top = 198.0
-offset_right = 234.0
+offset_right = 255.0
 offset_bottom = 286.0
 theme_override_font_sizes/font_size = 64
 text = "150¥"
+horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Rules" type="Label" parent="UI/UI"]
+visible = false
 layout_mode = 0
 offset_left = 1455.0
 offset_top = 916.0
@@ -129,8 +135,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
 offset_top = -67.0
-offset_right = 469.0
+offset_right = 479.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 48
 text = "Loops survived: 92.5"

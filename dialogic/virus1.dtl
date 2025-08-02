@@ -1,4 +1,5 @@
-join Virus leftmost
+join Virus left
+join X rightmost
 Virus: Space Virus greets a representative of The Corporation. Please disregard your preconceived notions about viruses, we pose no threat to anyone.
 Virus: Our task is to infect all cars in this galaxy. Yes, in case we forgot to mention it, we infect space cars.
 Virus: To infect a car, all you need is for an already infected car to touch it.
