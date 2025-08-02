@@ -1,7 +1,7 @@
 join Virus left
 join X rightmost
-Virus: Hello! I have good news for you! The boss of The Corporation Incorporated is also a Cosmo Virus car!
-Virus: He was very impressed with your work, and offers you a promotion! You can transfer to the Space Traffic Headquarters!
+Virus: Hello! I have good news for you! The Virus has spread all across the galaxy. The Corporation Incorporated now has their first ever Cosmo Virus car CEO!
+Virus: They were very impressed with your work, and offers you a promotion! You can transfer to the Space Traffic Headquarters!
 - Agree! (win)
 	[wait time="0.3"]
 	[signal arg="finale"]

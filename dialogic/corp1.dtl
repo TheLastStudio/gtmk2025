@@ -1,6 +1,6 @@
 join Corp leftmost
 join X rightmost
-Corp: Greetings, conscientious employee. We are going to leave important files on our ship. I hope for your cooperation in keeping them intact.
+Corp: Greetings, conscientious employee. We are going to leave important files on our ship. We hope for your cooperation in keeping them intact.
 Corp: If you lose them, you will be heavily fined. Is that clear?
 X: Everything is clear.
 leave Corp

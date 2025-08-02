@@ -3,7 +3,7 @@ join X rightmost
 Virus: Space Virus greets a representative of The Corporation. Please disregard your preconceived notions about viruses, we pose no threat to anyone.
 Virus: Our task is to infect all cars in this galaxy. Yes, in case we forgot to mention it, we infect space cars.
 Virus: To infect a car, all you need is for an already infected car to touch it.
-Virus: We would be very happy if you could help us spread it across the galaxy! It would be great for that too - infected cars leave extra tips!
-Virus: If you infect enough cars (at least 4) and there is no uninfected one left in orbit, we will visit you again with good news.
+Virus: We would be very happy if you could help us spread it across the galaxy! It would be great for you too - infected cars become intelligent and leave tips of their own. 
+Virus: If you infect enough cars (at least 4) and there is no uninfected ones left in orbit, we will visit you again with good news.
 leave --All--
 [signal arg="virus1_ended"]
