@@ -76,8 +76,6 @@ glossary/default_case_sensitive=true
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
-mouse_cursor/custom_image="uid://2k7jtj4lh8w0"
-mouse_cursor/custom_image_hotspot=Vector2(23, 7)
 
 [editor]
 
