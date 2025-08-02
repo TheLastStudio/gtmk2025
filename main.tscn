@@ -6,8 +6,8 @@
 [ext_resource type="Script" uid="uid://ce8wyk8s3kqt2" path="res://ui/shaders/success.gd" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bbq23x0tbi783" path="res://ui/main_menu/main_menu.tscn" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://cfepus6vjcw08" path="res://ui/transitions.gd" id="5_lquwl"]
-[ext_resource type="Texture2D" uid="uid://2k7jtj4lh8w0" path="res://CursorV4.png" id="7_5vw27"]
 [ext_resource type="Script" uid="uid://ulw3mvp34nq" path="res://cursor.gd" id="7_kek77"]
+[ext_resource type="Texture2D" uid="uid://ci0plod471kq5" path="res://CursorV3.png" id="8_4c57u"]
 [ext_resource type="Texture2D" uid="uid://5tgche3vl03a" path="res://CursorV5.png" id="8_kek77"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yge"]
@@ -115,7 +115,7 @@ offset_top = -7.0
 offset_right = 41.0
 offset_bottom = 57.0
 mouse_filter = 2
-texture = ExtResource("7_5vw27")
+texture = ExtResource("8_4c57u")
 
 [node name="CursorOn" type="TextureRect" parent="Cursor/Control/Cursor"]
 process_priority = -1

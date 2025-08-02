@@ -32,11 +32,12 @@ func _ready() -> void:
 	scene.setup_leaderboard()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	#if space.visible:
-		#space.position += paralux_speed*delta
-		#paralux_speed *= 0.95
+	#	space.position += paralux_speed*_delta
+	#	paralux_speed *= 0.95
+	
 	#if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) != last_frame_mouse_state:
 	#	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 	#		DisplayServer.cursor_set_custom_image(CURSOR_V_5, DisplayServer.CURSOR_ARROW, Vector2(23,7))
